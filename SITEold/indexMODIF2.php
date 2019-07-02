@@ -2,11 +2,6 @@
 
 include "../db_postConfig.php";
 
-global $cont_dj;
-$cont_dj=0;
-global  $vetorDj;
-
-$vetorDj = array();
  
 ?>
 
@@ -109,13 +104,13 @@ $vetorDj = array();
       <?php
       
       
-   
+    $vetorDj = array();
     $vetorCarac = array();
     $query = 'SELECT * from djs';
     $result = pg_query($query);
     $cont_port=1;
     $i = 0;
-    
+    $cont_dj=0;
     
     while (pg_fetch_row($result)) 
     {
@@ -142,7 +137,7 @@ $vetorDj = array();
       $descricao = pg_fetch_result($result, $i, "descricao"); 
       $img_nome= pg_fetch_result($result, $i, "img_nome");
       
-      $vetorDj[i] =  array($nome_real, $nome_art, $telefone, $cidade, $estado, $descricao, $img_nome);
+      $vetorDj[i] =  array($nome_real, $nome_art, $telefone, $telefone, $cidade, $estado, $descricao, $img_nome);
       
       
       
@@ -171,15 +166,78 @@ $vetorDj = array();
     }
     pg_free_result($result);
   
-     ?>
-     </div>
-      <!-- /.row -->
+      ? >
+     echo '</div>';
+      echo '<!-- /.row -->';
 
-     </div>
-   </section>
+     echo '</div>';
+   echo '</section>';
    
    
+    echo '<!-- Portfolio Modals -->';
+   // echo '<td> "PORT="'.$cont_port.'</td>';
+  
+  echo '<!-- Portfolio Modal '.$cont_port.' -->';
+  echo '<div class="portfolio-modal modal fade" id="portfolioModal'.$cont_port.'" tabindex="-1" role="dialog" aria-labelledby="portfolioModal'.$cont_port.'Label" aria-hidden="true">'; 
+        ?>
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"> <?php echo $nome_real ?> </h2>
+                <!-- Icon Divider -->
+                <div class="divider-custom">
+                  <div class="divider-custom-line"></div>
+                  <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Modal - Image -->
+                <?php
+                echo '<img class="img-fluid rounded mb-5" src="../img_djs/'.$img_nome.'" alt="">';
+                
+                echo '<!-- Portfolio Modal - Text -->';
+                echo '<p class="mb-5">
+                
+                <b>Nome:</b>  '.$nome_art.' <br />
+                <b>Cidade:</b> '.$cidade.' <br />
+                <b>Descrição:</b> '.$descricao.'</p>';
+                
+                ?>
+               
+                <button class="btn btn-primary" href="#" data-dismiss="modal">
+                  <i class="fas fa-times fa-fw"></i>
+                  Fechar Janela
+                </button>               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+                <?php 
+                
+                    $cont_dj = $cont_dj + 1;
+                    $cont_port = $cont_port + 1;   
+                    $i = $i + 1;
+                    
+                    }
+                    pg_free_result($result);
+                ?>
+
  
+  
   
   
   <!-- About Section -->
@@ -335,82 +393,7 @@ $vetorDj = array();
   </div>
 
  
-   <!-- Portfolio AQUI --> 
-   
-     <!-- Portfolio Modals -->
-     
-  <?php 
-  
-   $j=0;
-   $cont_port = 1;
-   while($j <= $cont_dj){
-   
-       
-    
-    echo '<!-- Portfolio Modal '.$cont_port.' -->';
-    echo '<div class="portfolio-modal modal fade" id="portfolioModal'.$cont_port.'" tabindex="-1" role="dialog" aria-labelledby="portfolioModal'.$cont_port.'Label" aria-hidden="true">'; 
-            ?>
-        <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">
-                <i class="fas fa-times"></i>
-            </span>
-            </button>
-            <div class="modal-body text-center">
-            <div class="container">
-                <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <!-- Portfolio Modal - Title -->
-                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"> <?php echo $vetorDj[$j][0] ?> </h2>
-                    <!-- Icon Divider -->
-                    <div class="divider-custom">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="divider-custom-line"></div>
-                    </div>
-                    <!-- Portfolio Modal - Image -->
-                    <?php
-                    echo '<img class="img-fluid rounded mb-5" src="../img_djs/'.$vetor[$j][5].'" alt="">';
-                    
-                    echo '<!-- Portfolio Modal - Text -->';
-                    echo '<p class="mb-5">
-                    
-                    <b>Nome:</b>  '.$vetorDj[$j][1].' <br />
-                    <b>Cidade:</b> '.$vetorDj[$j][3].' <br />
-                    <b>Descrição:</b> '.$vetorDj[$j][4].'</p>';
-                    
-                    ?>
-                
-                    <button class="btn btn-primary" href="#" data-dismiss="modal">
-                    <i class="fas fa-times fa-fw"></i>
-                    Fechar Janela
-                    </button>               
-                </div>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
-    
-                    <?php 
-                    
-                        //$cont_dj = $cont_dj + 1;
-                        $cont_port = $cont_port + 1;   
-                        $j = $j + 1;
-                        
-                        }
-                    ?>
-
-    
-   
-   
-   
-   
-   
+   <!-- Portfolio AQUI -->
  
   
   <!-- Bootstrap core JavaScript -->
