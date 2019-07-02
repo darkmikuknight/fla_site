@@ -106,7 +106,7 @@ $vetorDj = array();
       <div class="row" >
     
       
-      <?php
+<?php
       
       
    
@@ -136,13 +136,13 @@ $vetorDj = array();
       $nome_real = pg_fetch_result($result, $i, "nome_real"); 
       $nome_art = pg_fetch_result($result, $i, "nome_art"); 
       $telefone = pg_fetch_result($result, $i, "telefone"); 
-      $telefone = pg_fetch_result($result, $i, "telefone2"); 
+      $telefone2 = pg_fetch_result($result, $i, "telefone2"); 
       $cidade = pg_fetch_result($result, $i, "cidade"); 
       $estado = pg_fetch_result($result, $i, "estado"); 
       $descricao = pg_fetch_result($result, $i, "descricao"); 
       $img_nome= pg_fetch_result($result, $i, "img_nome");
       
-      $vetorDj[i] =  array($nome_real, $nome_art, $telefone, $cidade, $estado, $descricao, $img_nome);
+      $vetorDj[$i] =  array($nome_real, $nome_art, $telefone, $cidade, $estado, $img_nome, $descricao);
       
       
       
@@ -171,7 +171,7 @@ $vetorDj = array();
     }
     pg_free_result($result);
   
-     ?>
+?>
      </div>
       <!-- /.row -->
 
@@ -362,7 +362,7 @@ $vetorDj = array();
                 <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <!-- Portfolio Modal - Title -->
-                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"> <?php echo $vetorDj[$j][0] ?> </h2>
+                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"> <?php print_r ($vetorDj[$j][0]); ?> </h2>
                     <!-- Icon Divider -->
                     <div class="divider-custom">
                     <div class="divider-custom-line"></div>
@@ -373,14 +373,20 @@ $vetorDj = array();
                     </div>
                     <!-- Portfolio Modal - Image -->
                     <?php
-                    echo '<img class="img-fluid rounded mb-5" src="../img_djs/'.$vetor[$j][5].'" alt="">';
+
+                    $nome_img2=print_r($vetorDj[$j][5], true);
+                    $nome_art2=print_r($vetorDj[$j][1], true);
+                    $cidade2=print_r($vetorDj[$j][3], true);
+                    $descricao2=print_r($vetorDj[$j][6], true);
+
+                    echo '<img class="img-fluid rounded mb-5" src="../img_djs/'.$nome_img2.'" alt="">';
                     
                     echo '<!-- Portfolio Modal - Text -->';
                     echo '<p class="mb-5">
-                    
-                    <b>Nome:</b>  '.$vetorDj[$j][1].' <br />
-                    <b>Cidade:</b> '.$vetorDj[$j][3].' <br />
-                    <b>Descrição:</b> '.$vetorDj[$j][4].'</p>';
+                    '.$cont_port.'/'.$cont_dj.'/'.$nome_img2.'
+                    <b>Nome:</b>  '.$nome_art2.' <br />
+                    <b>Cidade:</b> '.$cidade2.' <br />
+                    <b>Descrição:</b> '.$descricao2.'</p>';
                     
                     ?>
                 
