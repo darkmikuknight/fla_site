@@ -378,12 +378,18 @@ $vetorDj = array();
                     $nome_art2=print_r($vetorDj[$j][1], true);
                     $cidade2=print_r($vetorDj[$j][3], true);
                     $descricao2=print_r($vetorDj[$j][6], true);
+                    preg_match_all('!\d+!', print_r($vetorDj[$j][2], true), $telefone_2);
+                    //$telefone_2=(int)print_r($vetorDj[$j][2], true);
 
                     echo '<img class="img-fluid rounded mb-5" src="../img_djs/'.$nome_img2.'" alt="">';
                     
+                    //echo '<a href="https://api.whatsapp.com/send?phone=5532988614906&amp;amp;text=FLAVINHO DJ JF" target="_blank"><img src="../img_djs/'.$nome_img2.'" alt=""></a>';
+                            
+                    echo '<br />';
+                    echo '<a href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text=FLAVINHO DJ JF" > Clique aqui para conversar no Whatsapp </a>';
                     echo '<!-- Portfolio Modal - Text -->';
                     echo '<p class="mb-5">
-                    '.$cont_port.'/'.$cont_dj.'/'.$nome_img2.'
+                    '.$cont_port.'/'.$cont_dj.'/'.$nome_img2.' '.$telefone_2.'
                     <b>Nome:</b>  '.$nome_art2.' <br />
                     <b>Cidade:</b> '.$cidade2.' <br />
                     <b>Descrição:</b> '.$descricao2.'</p>';
