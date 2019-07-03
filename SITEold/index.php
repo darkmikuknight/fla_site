@@ -1,5 +1,4 @@
 <?php //https://www.youtube.com/watch?v=rHPWkoXFIKM
-
 include "../db_postConfig.php";
 
 global $cont_dj;
@@ -7,7 +6,6 @@ $cont_dj=0;
 global  $vetorDj;
 
 $vetorDj = array();
- 
 ?>
 
 
@@ -100,88 +98,75 @@ $vetorDj = array();
         <div class="divider-custom-line"></div>
       </div>
     
-    
-    
+
      <!-- Portfolio Grid Items -->
-      <div class="row" >
-    
-      
-<?php
-      
-      
+    <div class="row" >
+          
+  <?php     
    
-    $vetorCarac = array();
-    $query = 'SELECT * from djs';
-    $result = pg_query($query);
-    $cont_port=1;
-    $i = 0;
-    
-    
-    while (pg_fetch_row($result)) 
-    {
-      //echo '<tr>';
-      $count = count($row);
-      $y = 0;
+      $vetorCarac = array();
+      $query = 'SELECT * from djs';
+      $result = pg_query($query);
+      $cont_port=1;
+      $i = 0;
       
-      /*while ($y < $count)
+      while (pg_fetch_row($result)) //percorrendo as consulta do banco de dados e salvando nas respesctivas variaveis
       {
-        $c_row = current($row);
-        echo '<td>' . $c_row . '</td>';
-              
-        next($row);
-        $y = $y + 1;
-      }*/
-      
-      
-      $nome_real = pg_fetch_result($result, $i, "nome_real"); 
-      $nome_art = pg_fetch_result($result, $i, "nome_art"); 
-      $telefone = pg_fetch_result($result, $i, "telefone"); 
-      $telefone2 = pg_fetch_result($result, $i, "telefone2"); 
-      $cidade = pg_fetch_result($result, $i, "cidade"); 
-      $estado = pg_fetch_result($result, $i, "estado"); 
-      $descricao = pg_fetch_result($result, $i, "descricao"); 
-      $img_nome= pg_fetch_result($result, $i, "img_nome");
-      
-      $vetorDj[$i] =  array($nome_real, $nome_art, $telefone, $cidade, $estado, $img_nome, $descricao);
-      
-      
-      
-      // echo '</tr>';
-      
-               
-        echo '<!-- Portfolio Item '.$cont_port.' -->';
-        echo '<div   class="col-md-6 col-lg-4">';
-          echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
-           echo '<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">';
-              echo '<div class="portfolio-item-caption-content text-center text-white">';
-                echo '<i class="fas fa-plus fa-3x"></i>';
-              echo '</div>';
-            echo '</div>';
-            
-            echo '<img class="img-fluid" src="../img_djs/'.$img_nome.'" alt="">';
-           
-           echo '</div>';
-        echo '</div>';
-    
+        //echo '<tr>';
+        //$count = count($row);
+        //$y = 0;
         
-     $cont_dj = $cont_dj + 1;
-     $cont_port = $cont_port + 1;   
-     $i = $i + 1;
-       //echo '</tr>';
-    }
-    pg_free_result($result);
-  
-?>
-     </div>
+        /*while ($y < $count)
+        {
+          $c_row = current($row);
+          echo '<td>' . $c_row . '</td>';
+                
+          next($row);
+          $y = $y + 1;
+        }*/
+        
+        $nome_real = pg_fetch_result($result, $i, "nome_real"); 
+        $nome_art = pg_fetch_result($result, $i, "nome_art"); 
+        $telefone = pg_fetch_result($result, $i, "telefone"); 
+        $telefone2 = pg_fetch_result($result, $i, "telefone2"); 
+        $cidade = pg_fetch_result($result, $i, "cidade"); 
+        $estado = pg_fetch_result($result, $i, "estado"); 
+        $descricao = pg_fetch_result($result, $i, "descricao"); 
+        $img_nome= pg_fetch_result($result, $i, "img_nome");
+        
+        $vetorDj[$i] =  array($nome_real, $nome_art, $telefone, $cidade, $estado, $img_nome, $descricao); //armazena as informaoes para serem usadas ao clicar nos portifolios        
+                 
+          echo '<!-- Portfolio Item '.$cont_port.' -->';
+          echo '<div   class="col-md-6 col-lg-4">';
+            echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
+             echo '<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">';
+                echo '<div class="portfolio-item-caption-content text-center text-white">';
+                  echo '<i class="fas fa-plus fa-3x"></i>';
+                echo '</div>';
+              echo '</div>';
+              
+              echo '<img class="img-fluid" src="../img_djs/'.$img_nome.'" alt="">';
+             
+             echo '</div>';
+          echo '</div>';
+         
+       $cont_dj = $cont_dj + 1;
+       $cont_port = $cont_port + 1;   
+       $i = $i + 1;
+         //echo '</tr>';
+      }
+      pg_free_result($result);
+    
+  ?>
+    </div>
       <!-- /.row -->
 
-     </div>
+    </div>
    </section>
    
    
  
-  
-  
+    
   <!-- About Section -->
   <section class="page-section bg-primary text-white mb-0" id="about">
     <div class="container">
@@ -336,20 +321,16 @@ $vetorDj = array();
 
  
    <!-- Portfolio AQUI --> 
-   
-     <!-- Portfolio Modals -->
-     
+     <!-- Portfolio Modals -->     
   <?php 
   
    $j=0;
    $cont_port = 1;
    while($j <= $cont_dj){
-   
        
-    
     echo '<!-- Portfolio Modal '.$cont_port.' -->';
     echo '<div class="portfolio-modal modal fade" id="portfolioModal'.$cont_port.'" tabindex="-1" role="dialog" aria-labelledby="portfolioModal'.$cont_port.'Label" aria-hidden="true">'; 
-            ?>
+    ?>
         <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -371,27 +352,32 @@ $vetorDj = array();
                     </div>
                     <div class="divider-custom-line"></div>
                     </div>
+
                     <!-- Portfolio Modal - Image -->
                     <?php
 
                     $nome_img2=print_r($vetorDj[$j][5], true);
+                    //$nome_real=print_r($vetorDj[$j][0], true);
                     $nome_art2=print_r($vetorDj[$j][1], true);
                     $cidade2=print_r($vetorDj[$j][3], true);
+                    $estado2=print_r($vetorDj[$j][4], true);
                     $descricao2=print_r($vetorDj[$j][6], true);
-                    preg_match_all('!\d+!', print_r($vetorDj[$j][2], true), $telefone_2);
-                    //$telefone_2=(int)print_r($vetorDj[$j][2], true);
+                    //preg_match_all('!\d+!', print_r($vetorDj[$j][2], true), $telefone_2);
+                    $tele=print_r($vetorDj[$j][2], true);
+                    //$telefone_2=(int) filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
+                    $telefone_2 = preg_replace('/\D/', '', $tele); //transforma a string em numero (inclusive caracteres especiais)
 
                     echo '<img class="img-fluid rounded mb-5" src="../img_djs/'.$nome_img2.'" alt="">';
                     
                     //echo '<a href="https://api.whatsapp.com/send?phone=5532988614906&amp;amp;text=FLAVINHO DJ JF" target="_blank"><img src="../img_djs/'.$nome_img2.'" alt=""></a>';
                             
                     echo '<br />';
-                    echo '<a href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text=FLAVINHO DJ JF" > Clique aqui para conversar no Whatsapp </a>';
-                    echo '<!-- Portfolio Modal - Text -->';
+                    echo '<a href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text='.$nome_art2.'"> Clique aqui para conversar no Whatsapp </a>';
+                    echo '<!-- Portfolio Modal - Text -->'; //'.$cont_port.'/'.$cont_dj.'/'.$nome_img2.' '.$telefone_2.'
                     echo '<p class="mb-5">
-                    '.$cont_port.'/'.$cont_dj.'/'.$nome_img2.' '.$telefone_2.'
+                    
                     <b>Nome:</b>  '.$nome_art2.' <br />
-                    <b>Cidade:</b> '.$cidade2.' <br />
+                    <b>Cidade:</b> '.$cidade2.'  &nbsp &nbsp<b>Estado:</b>'.$estado2.'<br />
                     <b>Descrição:</b> '.$descricao2.'</p>';
                     
                     ?>
@@ -408,22 +394,17 @@ $vetorDj = array();
         </div>
     </div>
     
-                    <?php 
-                    
-                        //$cont_dj = $cont_dj + 1;
-                        $cont_port = $cont_port + 1;   
-                        $j = $j + 1;
-                        
-                        }
-                    ?>
-
+    <?php 
     
-   
-   
-   
-   
-   
+        //$cont_dj = $cont_dj + 1;
+        $cont_port = $cont_port + 1;   
+        $j = $j + 1;
+        
+        }
+    ?>
  
+   
+
   
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
