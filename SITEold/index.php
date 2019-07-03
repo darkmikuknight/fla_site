@@ -367,12 +367,13 @@ $vetorDj = array();
                     //$telefone_2=(int) filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
                     $telefone_2 = preg_replace('/\D/', '', $tele); //transforma a string em numero (inclusive caracteres especiais)
 
-                    echo '<img class="img-fluid rounded mb-5" src="../img_djs/'.$nome_img2.'" alt="">';
-                    
+                    //echo '<img class="img-fluid rounded mb-5" src="../img_djs/'.$nome_img2.'" alt="">';
+                    echo '<a href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text='.$nome_art2.'"><img class="img-fluid rounded mb-5" src="../img_djs/'.$nome_img2.'" alt=""></a>';
                     //echo '<a href="https://api.whatsapp.com/send?phone=5532988614906&amp;amp;text=FLAVINHO DJ JF" target="_blank"><img src="../img_djs/'.$nome_img2.'" alt=""></a>';
                             
                     echo '<br />';
-                    echo '<a href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text='.$nome_art2.'"> Clique aqui para conversar no Whatsapp </a>';
+                    echo '<a href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text='.$nome_art2.'"><font size="5
+                        "> Clique aqui para conversar no Whatsapp </font></a>';
                     echo '<!-- Portfolio Modal - Text -->'; //'.$cont_port.'/'.$cont_dj.'/'.$nome_img2.' '.$telefone_2.'
                     echo '<p class="mb-5">
                     
