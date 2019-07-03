@@ -4,7 +4,7 @@ include "../db_postConfig.php";
 global $cont_dj;
 $cont_dj=0;
 global  $vetorDj;
-
+//https://bootsnipp.com/snippets/9Avx
 $vetorDj = array();
 ?>
 
@@ -28,6 +28,22 @@ $vetorDj = array();
 
   <!-- Theme CSS -->
   <link href="css/freelancer.min.css" rel="stylesheet">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  }
+    window.location.href="#portfolio";
+  );
+  </script>
+
 
 </head>
 
@@ -65,7 +81,11 @@ $vetorDj = array();
       <img class="masthead-avatar mb-5" src="img/avataaars.svg" alt="">
 
       <!-- Masthead Heading -->
-      <h1 class="masthead-heading text-uppercase mb-0">Start Bootstrap</h1>
+      <h1 class="masthead-heading text-uppercase mb-0">Busque por um DJ</h1>
+      <p>&nbsp;</p>
+      <input id="myInput" type="text" placeholder="Buscar...">
+      <br><br>
+
 
       <!-- Icon Divider -->
       <div class="divider-custom divider-light">
@@ -77,7 +97,7 @@ $vetorDj = array();
       </div>
 
       <!-- Masthead Subheading -->
-      <p class="masthead-subheading font-weight-light mb-0">Graphic Artist - Web Designer - Illustrator</p>
+      <p class="masthead-subheading font-weight-light mb-0">Você também pode buscar por cidade, estado.</p>
 
     </div>
   </header>
@@ -98,9 +118,9 @@ $vetorDj = array();
         <div class="divider-custom-line"></div>
       </div>
     
-
+       <tbody id="myTable">
      <!-- Portfolio Grid Items -->
-    <div class="row" >
+   
           
   <?php     
    
@@ -160,6 +180,7 @@ $vetorDj = array();
   ?>
     </div>
       <!-- /.row -->
+       
 
     </div>
    </section>
