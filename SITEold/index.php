@@ -37,19 +37,12 @@ $vetorDj = array();
 <body id="page-top">
 
 <style>
-.btn-primary {
-  color: var(--button-color);
-  background-color: var(--button-background-color) !important;
-  border-radius: var(--border-radius);
-}
 
-.btn-primary:hover {
-  box-shadow: inset 0 0 0 20rem var(--darken-1);
-  }
-  
-  #botao{
+  #search_param{
    background-color: #1F85DE  !important;
    }
+
+
 </style>
 
 <script>
@@ -70,6 +63,7 @@ $(function(){
 
 });
 </script>
+
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
@@ -105,7 +99,7 @@ $(function(){
       <!-- Masthead Heading -->
       <h1 class="masthead-heading text-uppercase mb-0">Start Bootstrap</h1>
       <br />
-      <br />
+
       
    <?php /*   
 
@@ -137,24 +131,24 @@ $(function(){
 */ ?>
 
 
+<form  method="get" action="?go=buscar">
 <div class="input-group">
     <div class="input-group-btn search-panel">
-		<button type="button" id="botao" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-		<span id="search_concept">Name</span> <span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu" role="menu">
-			<li><a href="#id"><i class="fa fa-angle-double-right"></i> ID</a></li>
-			<li><a href="#name"><i class="fa fa-angle-double-right"></i> Name</a></li>
-			<li><a href="#description"><i class="fa fa-angle-double-right"></i> Description</a></li>
-		</ul>
-	</div>
-	<input type="hidden" name="search_param" value="name" id="search_param">		 
-	<input type="text" class="form-control" name="q" placeholder="Search.." id="search_key" value="">
+		 <select name="search_param" id="search_param" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            <option value="all">All</option>
+                            <option value="username">Username</option>
+                            <option value="email">Email</option>
+                            <option value="studentcode">Student Code</option>
+                        </select>
+  </div>
+
+	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Buscar..." id="search_key" value="">
 	<span class="input-group-btn">
 
-			<button class="btn btn-info" type="submit">  Search  </button>
+			<button class="btn btn-info" type="submit">  Buscar  </button>
 	</span>
 </div>
+</form>
 
 
 
@@ -467,7 +461,7 @@ $(function(){
                     echo '<a href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text='.$nome_art2.'"><img class="img-fluid rounded mb-5" src="../img_djs/'.$nome_img2.'" alt=""></a>';
                     //echo '<a href="https://api.whatsapp.com/send?phone=5532988614906&amp;amp;text=FLAVINHO DJ JF" target="_blank"><img src="../img_djs/'.$nome_img2.'" alt=""></a>';
                             
-                    echo '<br />';
+                   // echo '<br />';
                     echo '<a href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text='.$nome_art2.'"><font size="5
                         "> Clique aqui para conversar no Whatsapp </font></a>';
                     echo '<!-- Portfolio Modal - Text -->'; //'.$cont_port.'/'.$cont_dj.'/'.$nome_img2.' '.$telefone_2.'
