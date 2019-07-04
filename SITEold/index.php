@@ -4,7 +4,7 @@ include "../db_postConfig.php";
 global $cont_dj;
 $cont_dj=0;
 global  $vetorDj;
-//https://bootsnipp.com/snippets/9Avx
+
 $vetorDj = array();
 ?>
 
@@ -28,26 +28,48 @@ $vetorDj = array();
 
   <!-- Theme CSS -->
   <link href="css/freelancer.min.css" rel="stylesheet">
+  
+  
 
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script>
-  $(document).ready(function(){
-    $("#myInput").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#myTable tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
-  }
-    window.location.href="#portfolio";
-  );
-  </script>
-
-
+   
 </head>
 
 <body id="page-top">
+
+<style>
+.btn-primary {
+  color: var(--button-color);
+  background-color: var(--button-background-color) !important;
+  border-radius: var(--border-radius);
+}
+
+.btn-primary:hover {
+  box-shadow: inset 0 0 0 20rem var(--darken-1);
+  }
+  
+  #botao{
+   background-color: #1F85DE  !important;
+   }
+</style>
+
+<script>
+ 
+$(function(){
+    
+    $(".input-group-btn .dropdown-menu li a").click(function(){
+
+        var selText = $(this).html();
+    
+        //working version - for single button //
+       //$('.btn:first-child').html(selText+'<span class="caret"></span>');  
+       
+       //working version - for multiple buttons //
+       $(this).parents('.input-group-btn').find('.btn-search').html(selText);
+
+   });
+
+});
+</script>
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
@@ -81,10 +103,64 @@ $vetorDj = array();
       <img class="masthead-avatar mb-5" src="img/avataaars.svg" alt="">
 
       <!-- Masthead Heading -->
-      <h1 class="masthead-heading text-uppercase mb-0">Busque por um DJ</h1>
-      <p>&nbsp;</p>
-      <input id="myInput" type="text" placeholder="Buscar...">
-      <br><br>
+      <h1 class="masthead-heading text-uppercase mb-0">Start Bootstrap</h1>
+      <br />
+      <br />
+      
+   <?php /*   
+
+<div class="container" style="margin-top: 8%;">
+<div class="col-md-6 col-md-offset-3">     
+<div class="row">
+<form align="center" role="form" id="form-buscar">
+<div class="form-group">
+<div class="input-group">
+<input id="1" class="form-control" type="text" name="search" placeholder="Search..." required/>
+<span class="input-group-btn">
+<button class="btn btn-success" type="submit">
+<i class="glyphicon glyphicon-search" aria-hidden="true"></i> Search
+</button>
+</span>
+</div>
+</div>
+</form>
+</div>            
+</div>
+</div>   
+
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+*/ ?>
+
+
+<div class="input-group">
+    <div class="input-group-btn search-panel">
+		<button type="button" id="botao" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+		<span id="search_concept">Name</span> <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="#id"><i class="fa fa-angle-double-right"></i> ID</a></li>
+			<li><a href="#name"><i class="fa fa-angle-double-right"></i> Name</a></li>
+			<li><a href="#description"><i class="fa fa-angle-double-right"></i> Description</a></li>
+		</ul>
+	</div>
+	<input type="hidden" name="search_param" value="name" id="search_param">		 
+	<input type="text" class="form-control" name="q" placeholder="Search.." id="search_key" value="">
+	<span class="input-group-btn">
+
+			<button class="btn btn-info" type="submit">  Search  </button>
+	</span>
+</div>
+
+
+
+
+
+
 
 
       <!-- Icon Divider -->
@@ -97,7 +173,7 @@ $vetorDj = array();
       </div>
 
       <!-- Masthead Subheading -->
-      <p class="masthead-subheading font-weight-light mb-0">Você também pode buscar por cidade, estado.</p>
+      <p class="masthead-subheading font-weight-light mb-0">Graphic Artist - Web Designer - Illustrator</p>
 
     </div>
   </header>
@@ -118,9 +194,9 @@ $vetorDj = array();
         <div class="divider-custom-line"></div>
       </div>
     
-       <tbody id="myTable">
+
      <!-- Portfolio Grid Items -->
-   
+    <div class="row" >
           
   <?php     
    
@@ -180,7 +256,6 @@ $vetorDj = array();
   ?>
     </div>
       <!-- /.row -->
-       
 
     </div>
    </section>
