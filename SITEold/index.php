@@ -42,7 +42,10 @@ $vetorDj = array();
    background-color: #1F85DE  !important;
    }
 
-
+      #butn{
+     background-color: #1F85DE  !important;
+   }
+   
 </style>
 
 <script>
@@ -97,7 +100,7 @@ $(function(){
       <img class="masthead-avatar mb-5" src="img/avataaars.svg" alt="">
 
       <!-- Masthead Heading -->
-      <h1 class="masthead-heading text-uppercase mb-0">Start Bootstrap</h1>
+      <h1 class="masthead-heading text-uppercase mb-0">Busque por um DJ</h1>
       <br />
 
       
@@ -130,22 +133,23 @@ $(function(){
 
 */ ?>
 
-
+<br />
 <form  method="get" action="?go=buscar">
 <div class="input-group">
     <div class="input-group-btn search-panel">
 		 <select name="search_param" id="search_param" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            <option value="all">All</option>
-                            <option value="username">Username</option>
-                            <option value="email">Email</option>
-                            <option value="studentcode">Student Code</option>
+                            <option value="filtrar">Filtrar por:   
+                            </option>
+                            <option value="cidade">Cidade</option>
+                            <option value="estado">Estado</option>
+                            <option value="const">...</option>
                         </select>
   </div>
 
 	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Buscar..." id="search_key" value="">
 	<span class="input-group-btn">
 
-			<button class="btn btn-info" type="submit">  Buscar  </button>
+			<button class="btn btn-info" id="butn" type="submit">  Buscar  </button>
 	</span>
 </div>
 </form>
@@ -167,7 +171,7 @@ $(function(){
       </div>
 
       <!-- Masthead Subheading -->
-      <p class="masthead-subheading font-weight-light mb-0">Graphic Artist - Web Designer - Illustrator</p>
+      <p class="masthead-subheading font-weight-light mb-0">Você pode buscar por cidade, estado.</p>
 
     </div>
   </header>
@@ -195,10 +199,58 @@ $(function(){
   <?php     
    
       $vetorCarac = array();
-      $query = 'SELECT * from djs';
-      $result = pg_query($query);
+      //$query = 'SELECT * from djs';
+      //$result = pg_query($query);
       $cont_port=1;
       $i = 0;
+      
+        $texto_b = $_GET['texto_busca'];
+            echo '<td> "PASO="'.$texto_b.'</td>'; 
+        // aqui comeca a verificacao dos filtros
+        
+        if((!(isset($_GET['search_param'])) || $_GET['search_param'] == "filtrar") && (isset($_GET['texto_busca']))){ // não foi usado nenhum filtro e texto de busca vazio
+        
+            $query = "SELECT * from djs";
+            $result = pg_query($query);
+            
+            if(pg_num_rows($result) == 0){
+            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado no sistema.</h2></td>';
+            }
+        }
+        
+        elseif((isset($_GET['search_param'])) && $_GET['search_param'] == "cidade"){ //busca filtrada por cidade
+        
+            $texto_b = $_GET['texto_busca'];
+            echo '<td> "cidade"'.$texto_b.'</td>'; 
+            $query = "SELECT * from djs WHERE LOWER(cidade) = LOWER('$texto_b') ";
+            $result = pg_query($query);
+            
+            if(pg_num_rows($result) == 0){
+            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado da cidade ' .$texto_b. '.</h2></td>';
+            }
+            
+        }
+        
+        elseif((isset($_GET['search_param'])) && $_GET['search_param'] == "estado"){ //busca filtrada por estado
+        
+            $texto_b = strtolower($_GET['texto_busca']);
+            echo '<td> "estado="'.$texto_b.'</td>'; 
+            $query = "SELECT * from djs WHERE estado = '$texto_b' ";
+            $result = pg_query($query);
+            
+            if(pg_num_rows($result) == 0){
+            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado do estado ' .$texto_b. '.</h2></td>';
+            }
+            
+        }
+        
+        else{
+             $query = "SELECT * from djs";
+             $result = pg_query($query);
+        }
+        
+        // pg_num_rows — Returns the number of rows in a result
+       
       
       while (pg_fetch_row($result)) //percorrendo as consulta do banco de dados e salvando nas respesctivas variaveis
       {
@@ -224,7 +276,11 @@ $(function(){
         $descricao = pg_fetch_result($result, $i, "descricao"); 
         $img_nome= pg_fetch_result($result, $i, "img_nome");
         
-        $vetorDj[$i] =  array($nome_real, $nome_art, $telefone, $cidade, $estado, $img_nome, $descricao); //armazena as informaoes para serem usadas ao clicar nos portifolios        
+        $vetorDj[$i] =  array($nome_real, $nome_art, $telefone, $cidade, $estado, $img_nome, $descricao); //armazena as informacoes para serem usadas ao clicar nos portifolios        
+        
+        
+      
+        
                  
           echo '<!-- Portfolio Item '.$cont_port.' -->';
           echo '<div   class="col-md-6 col-lg-4">';
