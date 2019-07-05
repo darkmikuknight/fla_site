@@ -39,12 +39,19 @@ $vetorDj = array();
 <style>
 
   #search_param{
-   background-color: #1F85DE  !important;
-   }
+    background-color: #1F85DE  !important;
+    font-size: 18px;
+    padding: 10px;
+    margin: -5px -1px;
 
-      #butn{
-     background-color: #1F85DE  !important;
-   }
+  }
+
+  #butn{
+    background-color: #1F85DE  !important;
+    padding: 8px;
+    margin: -3px -1px;
+
+  }
    
 </style>
 
