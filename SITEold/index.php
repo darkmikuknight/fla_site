@@ -141,7 +141,7 @@ $(function(){
 */ ?>
 
 <br />
-<form  method="get" action="?go=buscar">
+<form  method="get" action="?go=buscar#portfolio">
 <div class="input-group">
     <div class="input-group-btn search-panel">
 		 <select name="search_param" id="search_param" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -229,11 +229,11 @@ $(function(){
         
             $texto_b = $_GET['texto_busca'];
             echo '<td> "cidade"'.$texto_b.'</td>'; 
-            $query = "SELECT * from djs WHERE LOWER(cidade) = LOWER('$texto_b') ";
+            $query = "SELECT * from djs WHERE LOWER(cidade) LIKE LOWER('%$texto_b%') ";
             $result = pg_query($query);
             
             if(pg_num_rows($result) == 0){
-            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado da cidade ' .$texto_b. '.</h2></td>';
+            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado da cidade "' .$texto_b. '".</h2></td>';
             }
             
         }
@@ -242,11 +242,11 @@ $(function(){
         
             $texto_b = strtolower($_GET['texto_busca']);
             echo '<td> "estado="'.$texto_b.'</td>'; 
-            $query = "SELECT * from djs WHERE estado = '$texto_b' ";
+            $query = "SELECT * from djs WHERE LOWER(estado) LIKE '%$texto_b%' ";
             $result = pg_query($query);
             
             if(pg_num_rows($result) == 0){
-            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado do estado ' .$texto_b. '.</h2></td>';
+            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado do estado "' .$texto_b. '".</h2></td>';
             }
             
         }
