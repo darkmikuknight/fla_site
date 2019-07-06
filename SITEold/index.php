@@ -138,6 +138,7 @@ $(function(){
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 
+
 */ ?>
 
 <br />
@@ -149,7 +150,7 @@ $(function(){
                             </option>
                             <option value="cidade">Cidade</option>
                             <option value="estado">Estado</option>
-                            <option value="const">...</option>
+                            <option value="todos">Todos</option>
                         </select>
   </div>
 
@@ -211,26 +212,36 @@ $(function(){
       $cont_port=1;
       $i = 0;
       
-        $texto_b = $_GET['texto_busca'];
-            echo '<td> "PASO="'.$texto_b.'</td>'; 
+       $texto_b = $_GET['texto_busca'];
+       echo '<td> "PASO="'.$texto_b.'</td>'; 
         // aqui comeca a verificacao dos filtros
         
-        if((!(isset($_GET['search_param'])) || $_GET['search_param'] == "filtrar") && (isset($_GET['texto_busca']))){ // não foi usado nenhum filtro e texto de busca vazio
+        if((!(isset($_GET['search_param'])) || $_GET['search_param'] == "filtrar" || $_GET['search_param'] == "todos") && (isset($_GET['texto_busca']))){ // não foi usado nenhum filtro e qualquer texto de busca
         
-            $query = "SELECT * from djs";
+            $query = "SELECT * from djs WHERE LOWER(nome_real) LIKE LOWER('%$texto_b%') OR LOWER(nome_art) LIKE LOWER('%$texto_b%') OR LOWER(descricao) LIKE LOWER('%$texto_b%') ";
             $result = pg_query($query);
             
             if(pg_num_rows($result) == 0){
-            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado no sistema.</h2></td>';
+            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado no sistema relacionado com "'.$texto_b.'"</h2></td>';
             }
         }
         
         elseif((isset($_GET['search_param'])) && $_GET['search_param'] == "cidade"){ //busca filtrada por cidade
         
-            $texto_b = $_GET['texto_busca'];
-            echo '<td> "cidade"'.$texto_b.'</td>'; 
-            $query = "SELECT * from djs WHERE LOWER(cidade) LIKE LOWER('%$texto_b%') ";
-            $result = pg_query($query);
+            if(isset($_GET['texto_busca'])){ // digitou algo na barra de busca
+                $texto_b = $_GET['texto_busca'];
+                echo '<td> "cidade"'.$texto_b.'</td>'; 
+                $query = "SELECT * from djs WHERE LOWER(cidade) LIKE LOWER('%$texto_b%') ";
+                $result = pg_query($query);
+            }
+            
+            TEM QUE SER A UNIAO DAS DUAS
+            elseif(!(isset($_GET['texto_busca']))){ // nao foi digitado nenhum texto na busca
+                
+                $query = "SELECT * from djs WHERE LOWER(cidade) = (SELECT cidade_nome FROM lista_sigla WHERE LOWER(cidade_nome) = LOWER('$texto_b') OR LOWER(sigla_cidade) = LOWER('$texto_b')) "; 
+                $result = pg_query($query); 
+            }
+            
             
             if(pg_num_rows($result) == 0){
             echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado da cidade "' .$texto_b. '".</h2></td>';
@@ -242,7 +253,7 @@ $(function(){
         
             $texto_b = strtolower($_GET['texto_busca']);
             echo '<td> "estado="'.$texto_b.'</td>'; 
-            $query = "SELECT * from djs WHERE LOWER(estado) LIKE '%$texto_b%' ";
+            $query = "SELECT * from djs WHERE LOWER(estado) LIKE LOWER('%$texto_b%') ";
             $result = pg_query($query);
             
             if(pg_num_rows($result) == 0){
@@ -250,28 +261,35 @@ $(function(){
             }
             
         }
-        
-        else{
-             $query = "SELECT * from djs";
-             $result = pg_query($query);
+    
+        else{ // busca somente pelo texto de busca
+            
+            $query = "SELECT * from djs";
+            $result = pg_query($query);
+            
+            if(pg_num_rows($result) == 0){
+            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado no sistema.</h2></td>';
+            }
+            
         }
         
+        
         // pg_num_rows — Returns the number of rows in a result
-       
-      
-      while (pg_fetch_row($result)) //percorrendo as consulta do banco de dados e salvando nas respesctivas variaveis
-      {
+        
+        
+        while (pg_fetch_row($result)){ //percorrendo as consulta do banco de dados e salvando nas respesctivas variaveis
+        
         //echo '<tr>';
         //$count = count($row);
         //$y = 0;
         
         /*while ($y < $count)
         {
-          $c_row = current($row);
-          echo '<td>' . $c_row . '</td>';
+            $c_row = current($row);
+            echo '<td>' . $c_row . '</td>';
                 
-          next($row);
-          $y = $y + 1;
+            next($row);
+            $y = $y + 1;
         }*/
         
         $nome_real = pg_fetch_result($result, $i, "nome_real"); 
@@ -286,29 +304,29 @@ $(function(){
         $vetorDj[$i] =  array($nome_real, $nome_art, $telefone, $cidade, $estado, $img_nome, $descricao); //armazena as informacoes para serem usadas ao clicar nos portifolios        
         
         
-      
         
-                 
-          echo '<!-- Portfolio Item '.$cont_port.' -->';
-          echo '<div   class="col-md-6 col-lg-4">';
+        
+                    
+            echo '<!-- Portfolio Item '.$cont_port.' -->';
+            echo '<div   class="col-md-6 col-lg-4">';
             echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
-             echo '<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">';
+                echo '<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">';
                 echo '<div class="portfolio-item-caption-content text-center text-white">';
-                  echo '<i class="fas fa-plus fa-3x"></i>';
+                    echo '<i class="fas fa-plus fa-3x"></i>';
                 echo '</div>';
-              echo '</div>';
-              
-              echo '<img class="img-fluid" src="../img_djs/'.$img_nome.'" alt="">';
-             
-             echo '</div>';
-          echo '</div>';
-         
-       $cont_dj = $cont_dj + 1;
-       $cont_port = $cont_port + 1;   
-       $i = $i + 1;
-         //echo '</tr>';
-      }
-      pg_free_result($result);
+                echo '</div>';
+                
+                echo '<img class="img-fluid" src="../img_djs/'.$img_nome.'" alt="">';
+                
+                echo '</div>';
+            echo '</div>';
+            
+        $cont_dj = $cont_dj + 1;
+        $cont_port = $cont_port + 1;   
+        $i = $i + 1;
+            //echo '</tr>';
+        }
+        pg_free_result($result);
     
   ?>
     </div>
