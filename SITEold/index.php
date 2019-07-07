@@ -582,9 +582,10 @@ $(function(){
                     echo '<!-- Portfolio Modal - Text -->'; //'.$cont_port.'/'.$cont_dj.'/'.$nome_img2.' '.$telefone_2.'
                     echo '<p class="mb-5">
                     
-                    <b>Nome:</b>  '.$nome_art2.' <br />
-                    <b>Cidade:</b> '.$cidade2.'  &nbsp &nbsp<b>Estado:</b> '.$estado2.'<br />
-                    <b>Descrição:</b> '.$descricao2.'</p>';
+                    <b>Nome:</b>  '.$nome_art2.' &nbsp &nbsp<b>Telefone:</b> '.$tele.'<br />
+                    <b>Cidade:</b> '.$cidade2.'  &nbsp &nbsp<b>Estado:</b> '.$estado2.'<br />';
+                    if(!empty($descricao2))
+                      echo '<b>Descrição:</b> '.$descricao2.'</p>';
                     
                     ?>
                 
