@@ -207,112 +207,128 @@ $(function(){
   <?php     
    
       $vetorCarac = array();
-      //$query = 'SELECT * from djs';
-      //$result = pg_query($query);
-      $cont_port=1;
-      $i = 0;
+
+      /// query2 = reponsavel por buscar todas as cidades e estados cadastrados no sitema para poder organizar depois.
+      $query2 = 'SELECT * from lista_sigla';
+      $result2 = pg_query($query2);
+
+      $cont_port=1; // conta quantos djs foram carregados do banco para exibir ao clicar neles (usado na parte de baixo do código)
+      $i = 0; // numero de linhas na busca da tabela "djs"
+      $j = 0; $li_T2 = 0; // numero de linhas na busca da tabela "lista_sigla"
+      $texto_b = $_GET['texto_busca'];
+       
+      echo '<td> "PASO="'.$texto_b.'</td>'; 
+       
       
-       $texto_b = $_GET['texto_busca'];
-       
-       echo '<td> "PASO="'.$texto_b.'</td>'; 
-       
-       
-       
-        // aqui comeca a verificacao dos filtros
-        
-        if((!(isset($_GET['search_param'])) || $_GET['search_param'] == "filtrar" || $_GET['search_param'] == "todos") && (isset($_GET['texto_busca']))){ // não foi usado nenhum filtro e qualquer texto de busca
-        
-            $query = "SELECT * from djs WHERE LOWER(nome_real) LIKE LOWER('%$texto_b%') OR LOWER(nome_art) LIKE LOWER('%$texto_b%') OR LOWER(descricao) LIKE LOWER('%$texto_b%') ";
-            $result = pg_query($query);
-            
-            $num_lin = pg_num_rows($result);
-            echo '<td> "Num linhas2="'.$num_lin.'</td>';
-            
-            if(pg_num_rows($result) == 0){
-            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado no sistema relacionado com "'.$texto_b.'"</h2></td>';
-            }
-        }
-        
-        elseif((isset($_GET['search_param'])) && $_GET['search_param'] == "cidade"){ //busca filtrada por cidade
-        
-            if(isset($_GET['texto_busca']) && empty($_GET['texto_busca']) == false){ // digitou algo na barra de busca
-                $texto_b = $_GET['texto_busca'];
-                echo '<td> "cidade"'.$texto_b.'</td>'; 
-                //$query = "SELECT * from djs WHERE LOWER(cidade) LIKE LOWER('%$texto_b%') ";
-                $query = "SELECT * from djs WHERE LOWER(cidade) = LOWER((SELECT cidade_nome FROM lista_sigla WHERE LOWER(cidade_nome) LIKE LOWER('%$texto_b%') OR LOWER(sigla_cidade) = LOWER('$texto_b'))) "; 
-                $result = pg_query($query);
-            }
-            
-            //$num_lin = pg_num_rows($result);
-            //echo '<td> "Num linhas1="'.$num_lin.'</td>';
-            
-            elseif(empty($_GET['texto_busca'])){ // nao foi digitado nenhum texto na busca
+      // iniciando o vertor que contera todoas as cidades e estados do banco para exibir mais tarde
+
+      while (pg_fetch_row($result2)){
+
+        $cidade_T2 = pg_fetch_result($result2, $j, "cidade_nome"); 
+        $estado_T2 = pg_fetch_result($result2, $j, "estado_nome"); 
                 
-               $query = "SELECT * from djs ORDER BY cidade"; 
-               $result = pg_query($query); 
-            }
+        $vetor_lista[$j] =  array($cidade_T2, $estado_T2); //armazena as informacoes para serem usadas ao comparar cidades/estados   
+        $j = $j + 1;
+        $li_T2 = $li_T2 + 1;     
+      }
+       
+      // aqui comeca a verificacao dos filtros
+      
+      if((!(isset($_GET['search_param'])) || $_GET['search_param'] == "filtrar" || $_GET['search_param'] == "todos") && (isset($_GET['texto_busca']))){ // não foi usado nenhum filtro e qualquer texto de busca
+      
+          $query = "SELECT * from djs WHERE LOWER(nome_real) LIKE LOWER('%$texto_b%') OR LOWER(nome_art) LIKE LOWER('%$texto_b%') OR LOWER(descricao) LIKE LOWER('%$texto_b%') ";
+          $result = pg_query($query);
+          
+          $num_lin = pg_num_rows($result);
+          echo '<td> "Num linhas2="'.$num_lin.'</td>';
+          
+          if(pg_num_rows($result) == 0){
+          echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado no sistema relacionado com "'.$texto_b.'"</h2></td>';
+          }
+      }
+      
+      elseif((isset($_GET['search_param'])) && $_GET['search_param'] == "cidade"){ //busca filtrada por cidade
+      
+          if(isset($_GET['texto_busca']) && empty($_GET['texto_busca']) == false){ // digitou algo na barra de busca
+              $texto_b = $_GET['texto_busca'];
+              echo '<td> "cidade"'.$texto_b.'</td>'; 
+              //$query = "SELECT * from djs WHERE LOWER(cidade) LIKE LOWER('%$texto_b%') ";
+              $query = "SELECT * from djs WHERE LOWER(cidade) = LOWER((SELECT cidade_nome FROM lista_sigla WHERE LOWER(cidade_nome) LIKE LOWER('%$texto_b%') OR LOWER(sigla_cidade) = LOWER('$texto_b'))) "; 
+              $result = pg_query($query);
+          }
+          
+          //$num_lin = pg_num_rows($result);
+          //echo '<td> "Num linhas1="'.$num_lin.'</td>';
+          
+          elseif(empty($_GET['texto_busca'])){ // nao foi digitado nenhum texto na busca
             
+            $exbirPorCidade = true;
+            $query = "SELECT * from djs ORDER BY cidade"; 
+            $result = pg_query($query); 
+          }
+          
+          
+          if(pg_num_rows($result) < 1){
+          echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado da cidade "' .$texto_b. '".</h2></td>';
+          }
+          
+          if(pg_num_rows($result) == -1){
+          echo '<td> <h4>Houve algum erro na busca - Linha 261".</h4></td>';
+          }
+          
+      }
+      
+      elseif((isset($_GET['search_param'])) && $_GET['search_param'] == "estado"){ //busca filtrada por estado
+      
+          if(isset($_GET['texto_busca']) && empty($_GET['texto_busca']) == false){ // digitou algo na barra de busca
+              $texto_b = $_GET['texto_busca'];
+              echo '<td> "estaddo"'.$texto_b.'</td>'; 
+              //$query = "SELECT * from djs WHERE LOWER(estado) LIKE LOWER('%$texto_b%') ";
+              $query = "SELECT * from djs WHERE LOWER(estado) = LOWER((SELECT estado_nome FROM lista_sigla WHERE LOWER(estado_nome) LIKE LOWER('%$texto_b%') OR LOWER(sigla_estado) = LOWER('$texto_b'))) "; 
+              $result = pg_query($query);
+          }
+          
+          //$num_lin = pg_num_rows($result);
+          //echo '<td> "Num linhas1="'.$num_lin.'</td>';
+          
+          elseif(empty($_GET['texto_busca'])){ // nao foi digitado nenhum texto na busca
             
-            if(pg_num_rows($result) < 1){
-            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado da cidade "' .$texto_b. '".</h2></td>';
-            }
-            
-            if(pg_num_rows($result) == -1){
-            echo '<td> <h4>Houve algum erro na busca - Linha 252".</h4></td>';
-            }
-            
-        }
-        
-        elseif((isset($_GET['search_param'])) && $_GET['search_param'] == "estado"){ //busca filtrada por estado
-        
-            if(isset($_GET['texto_busca']) && empty($_GET['texto_busca']) == false){ // digitou algo na barra de busca
-                $texto_b = $_GET['texto_busca'];
-                echo '<td> "estaddo"'.$texto_b.'</td>'; 
-                //$query = "SELECT * from djs WHERE LOWER(estado) LIKE LOWER('%$texto_b%') ";
-                $query = "SELECT * from djs WHERE LOWER(estado) = LOWER((SELECT estado_nome FROM lista_sigla WHERE LOWER(estado_nome) LIKE LOWER('%$texto_b%') OR LOWER(sigla_estado) = LOWER('$texto_b'))) "; 
-                $result = pg_query($query);
-            }
-            
-            //$num_lin = pg_num_rows($result);
-            //echo '<td> "Num linhas1="'.$num_lin.'</td>';
-            
-            elseif(empty($_GET['texto_busca'])){ // nao foi digitado nenhum texto na busca
-                
-               $query = "SELECT * from djs ORDER BY estado"; 
-               $result = pg_query($query); 
-            }
-            
-            
-            if(pg_num_rows($result) < 1){
-            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado da estado "' .$texto_b. '".</h2></td>';
-            }
-            
-            if(pg_num_rows($result) == -1){
-            echo '<td> <h4>Houve algum erro na busca - Linha 252".</h4></td>';
-            }
-            
-        }
-    
-        else{ // busca somente pelo texto de busca
-            
-            $query = "SELECT * from djs";
-            $result = pg_query($query);
-            
-            $num_lin = pg_num_rows($result);
-            echo '<td> "Num linhas-1="'.$num_lin.'</td>';
-            
-            if(pg_num_rows($result) == 0){
-            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado no sistema.</h2></td>';
-            }
-            
-        }
+            $exbirPorEstado = true;
+            $query = "SELECT * from djs ORDER BY estado"; 
+            $result = pg_query($query); 
+          }
+          
+          
+          if(pg_num_rows($result) < 1){
+          echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado do estado "' .$texto_b. '".</h2></td>';
+          }
+          
+          if(pg_num_rows($result) == -1){
+          echo '<td> <h4>Houve algum erro na busca - Linha 291".</h4></td>';
+          }
+          
+      }
+  
+      else{ // busca somente pelo texto de busca
+          
+          $query = "SELECT * from djs";
+          $result = pg_query($query);
+          
+          $num_lin = pg_num_rows($result);
+          echo '<td> "Num linhas-1="'.$num_lin.'</td>';
+          
+          if(pg_num_rows($result) == 0){
+          echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado no sistema.</h2></td>';
+          }
+          
+      }
         
         
         // pg_num_rows — Returns the number of rows in a result
         
         
-        while (pg_fetch_row($result)){ //percorrendo as consulta do banco de dados e salvando nas respesctivas variaveis
-        
+      while (pg_fetch_row($result)){ //percorrendo as consulta do banco de dados e salvando nas respesctivas variaveis
+      
         //echo '<tr>';
         //$count = count($row);
         //$y = 0;
@@ -337,10 +353,61 @@ $(function(){
         
         $vetorDj[$i] =  array($nome_real, $nome_art, $telefone, $cidade, $estado, $img_nome, $descricao); //armazena as informacoes para serem usadas ao clicar nos portifolios        
         
+        $j = 0;
+        while($j <= $li_T2){
         
-        
-        
-                    
+          if(($exbirPorCidade) && $cidade == print_r($vetor_lista[$j][0], true)){ // se for true entao vai exibir por nome de cidade em ordem alfabetica
+              
+              echo 'Cidade: '.$cidade.'';
+              echo '<!-- Portfolio Item '.$cont_port.' -->';
+              echo '<div   class="col-md-6 col-lg-4">';
+              echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
+                  echo '<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">';
+                  echo '<div class="portfolio-item-caption-content text-center text-white">';
+                      echo '<i class="fas fa-plus fa-3x"></i>';
+                  echo '</div>';
+                  echo '</div>';
+                  
+                  echo '<img class="img-fluid" src="../img_djs/'.$img_nome.'" alt="">';
+                  
+                  echo '</div>';
+              echo '</div>';
+                  
+              $cont_dj = $cont_dj + 1;
+              $cont_port = $cont_port + 1;   
+              $i = $i + 1;
+
+          }
+
+          elseif(($exbirPorEstado) && $estado == print_r($vetor_lista[$j][1], true)){
+            
+             echo 'Cidade: '.$estado.'';
+              echo '<!-- Portfolio Item '.$cont_port.' -->';
+              echo '<div   class="col-md-6 col-lg-4">';
+              echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
+                  echo '<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">';
+                  echo '<div class="portfolio-item-caption-content text-center text-white">';
+                      echo '<i class="fas fa-plus fa-3x"></i>';
+                  echo '</div>';
+                  echo '</div>';
+                  
+                  echo '<img class="img-fluid" src="../img_djs/'.$img_nome.'" alt="">';
+                  
+                  echo '</div>';
+              echo '</div>';
+                  
+              $cont_dj = $cont_dj + 1;
+              $cont_port = $cont_port + 1;   
+              $i = $i + 1;
+          }
+
+          $j = $j + 1;
+
+       }
+
+
+       // else{
+            ////// TODOS SEM ORDEM /////            
             echo '<!-- Portfolio Item '.$cont_port.' -->';
             echo '<div   class="col-md-6 col-lg-4">';
             echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
@@ -354,20 +421,21 @@ $(function(){
                 
                 echo '</div>';
             echo '</div>';
-            
-        $cont_dj = $cont_dj + 1;
-        $cont_port = $cont_port + 1;   
-        $i = $i + 1;
+                
+            $cont_dj = $cont_dj + 1;
+            $cont_port = $cont_port + 1;   
+            $i = $i + 1;
             //echo '</tr>';
-        }
-        pg_free_result($result);
+       // } 
+      }
+      pg_free_result($result);
     
   ?>
     </div>
       <!-- /.row -->
 
     </div>
-   </section>
+  </section>
    
    
  
