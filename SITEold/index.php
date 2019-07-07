@@ -213,13 +213,20 @@ $(function(){
       $i = 0;
       
        $texto_b = $_GET['texto_busca'];
+       
        echo '<td> "PASO="'.$texto_b.'</td>'; 
+       
+       
+       
         // aqui comeca a verificacao dos filtros
         
         if((!(isset($_GET['search_param'])) || $_GET['search_param'] == "filtrar" || $_GET['search_param'] == "todos") && (isset($_GET['texto_busca']))){ // não foi usado nenhum filtro e qualquer texto de busca
         
             $query = "SELECT * from djs WHERE LOWER(nome_real) LIKE LOWER('%$texto_b%') OR LOWER(nome_art) LIKE LOWER('%$texto_b%') OR LOWER(descricao) LIKE LOWER('%$texto_b%') ";
             $result = pg_query($query);
+            
+            $num_lin = pg_num_rows($result);
+            echo '<td> "Num linhas2="'.$num_lin.'</td>';
             
             if(pg_num_rows($result) == 0){
             echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado no sistema relacionado com "'.$texto_b.'"</h2></td>';
@@ -228,23 +235,30 @@ $(function(){
         
         elseif((isset($_GET['search_param'])) && $_GET['search_param'] == "cidade"){ //busca filtrada por cidade
         
-            if(isset($_GET['texto_busca'])){ // digitou algo na barra de busca
+            if(isset($_GET['texto_busca']) && empty($_GET['texto_busca']) == false){ // digitou algo na barra de busca
                 $texto_b = $_GET['texto_busca'];
                 echo '<td> "cidade"'.$texto_b.'</td>'; 
-                $query = "SELECT * from djs WHERE LOWER(cidade) LIKE LOWER('%$texto_b%') ";
+                //$query = "SELECT * from djs WHERE LOWER(cidade) LIKE LOWER('%$texto_b%') ";
+                $query = "SELECT * from djs WHERE LOWER(cidade) = LOWER((SELECT cidade_nome FROM lista_sigla WHERE LOWER(cidade_nome) LIKE LOWER('%$texto_b%') OR LOWER(sigla_cidade) = LOWER('$texto_b'))) "; 
                 $result = pg_query($query);
             }
             
-            TEM QUE SER A UNIAO DAS DUAS
-            elseif(!(isset($_GET['texto_busca']))){ // nao foi digitado nenhum texto na busca
+            //$num_lin = pg_num_rows($result);
+            //echo '<td> "Num linhas1="'.$num_lin.'</td>';
+            
+            elseif(empty($_GET['texto_busca'])){ // nao foi digitado nenhum texto na busca
                 
-                $query = "SELECT * from djs WHERE LOWER(cidade) = (SELECT cidade_nome FROM lista_sigla WHERE LOWER(cidade_nome) = LOWER('$texto_b') OR LOWER(sigla_cidade) = LOWER('$texto_b')) "; 
-                $result = pg_query($query); 
+               $query = "SELECT * from djs ORDER BY cidade"; 
+               $result = pg_query($query); 
             }
             
             
-            if(pg_num_rows($result) == 0){
+            if(pg_num_rows($result) < 1){
             echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado da cidade "' .$texto_b. '".</h2></td>';
+            }
+            
+            if(pg_num_rows($result) == -1){
+            echo '<td> <h4>Houve algum erro na busca - Linha 252".</h4></td>';
             }
             
         }
@@ -256,6 +270,9 @@ $(function(){
             $query = "SELECT * from djs WHERE LOWER(estado) LIKE LOWER('%$texto_b%') ";
             $result = pg_query($query);
             
+            $num_lin = pg_num_rows($result);
+            echo '<td> "Num linhas0="'.$num_lin.'</td>';
+            
             if(pg_num_rows($result) == 0){
             echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado do estado "' .$texto_b. '".</h2></td>';
             }
@@ -266,6 +283,9 @@ $(function(){
             
             $query = "SELECT * from djs";
             $result = pg_query($query);
+            
+            $num_lin = pg_num_rows($result);
+            echo '<td> "Num linhas-1="'.$num_lin.'</td>';
             
             if(pg_num_rows($result) == 0){
             echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado no sistema.</h2></td>';
@@ -542,14 +562,14 @@ $(function(){
                     echo '<a href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text='.$nome_art2.'"><img class="img-fluid rounded mb-5" src="../img_djs/'.$nome_img2.'" alt=""></a>';
                     //echo '<a href="https://api.whatsapp.com/send?phone=5532988614906&amp;amp;text=FLAVINHO DJ JF" target="_blank"><img src="../img_djs/'.$nome_img2.'" alt=""></a>';
                             
-                   // echo '<br />';
+                    echo '<br />';
                     echo '<a href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text='.$nome_art2.'"><font size="5
                         "> Clique aqui para conversar no Whatsapp </font></a>';
                     echo '<!-- Portfolio Modal - Text -->'; //'.$cont_port.'/'.$cont_dj.'/'.$nome_img2.' '.$telefone_2.'
                     echo '<p class="mb-5">
                     
                     <b>Nome:</b>  '.$nome_art2.' <br />
-                    <b>Cidade:</b> '.$cidade2.'  &nbsp &nbsp<b>Estado:</b>'.$estado2.'<br />
+                    <b>Cidade:</b> '.$cidade2.'  &nbsp &nbsp<b>Estado:</b> '.$estado2.'<br />
                     <b>Descrição:</b> '.$descricao2.'</p>';
                     
                     ?>
