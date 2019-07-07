@@ -265,16 +265,30 @@ $(function(){
         
         elseif((isset($_GET['search_param'])) && $_GET['search_param'] == "estado"){ //busca filtrada por estado
         
-            $texto_b = strtolower($_GET['texto_busca']);
-            echo '<td> "estado="'.$texto_b.'</td>'; 
-            $query = "SELECT * from djs WHERE LOWER(estado) LIKE LOWER('%$texto_b%') ";
-            $result = pg_query($query);
+            if(isset($_GET['texto_busca']) && empty($_GET['texto_busca']) == false){ // digitou algo na barra de busca
+                $texto_b = $_GET['texto_busca'];
+                echo '<td> "estaddo"'.$texto_b.'</td>'; 
+                //$query = "SELECT * from djs WHERE LOWER(estado) LIKE LOWER('%$texto_b%') ";
+                $query = "SELECT * from djs WHERE LOWER(estado) = LOWER((SELECT estado_nome FROM lista_sigla WHERE LOWER(estado_nome) LIKE LOWER('%$texto_b%') OR LOWER(sigla_estado) = LOWER('$texto_b'))) "; 
+                $result = pg_query($query);
+            }
             
-            $num_lin = pg_num_rows($result);
-            echo '<td> "Num linhas0="'.$num_lin.'</td>';
+            //$num_lin = pg_num_rows($result);
+            //echo '<td> "Num linhas1="'.$num_lin.'</td>';
             
-            if(pg_num_rows($result) == 0){
-            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado do estado "' .$texto_b. '".</h2></td>';
+            elseif(empty($_GET['texto_busca'])){ // nao foi digitado nenhum texto na busca
+                
+               $query = "SELECT * from djs ORDER BY estado"; 
+               $result = pg_query($query); 
+            }
+            
+            
+            if(pg_num_rows($result) < 1){
+            echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado da estado "' .$texto_b. '".</h2></td>';
+            }
+            
+            if(pg_num_rows($result) == -1){
+            echo '<td> <h4>Houve algum erro na busca - Linha 252".</h4></td>';
             }
             
         }
