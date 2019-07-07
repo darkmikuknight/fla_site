@@ -133,7 +133,7 @@ while ($row = pg_fetch_row($result))
    $img_nome = pg_fetch_result($result, $i, "img_nome"); 
    //$img_src = 
    //$id = $_GET['id'];
-  echo '<td> "ID="'.$id.'</td>';
+  //echo '<td> "IDNOME="'.$nome_real.'</td>';
    
 ?>
 
@@ -143,30 +143,31 @@ while ($row = pg_fetch_row($result))
 <form id="formE" class="formoid-solid-blue" style="background-color:#FFFFFF;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:480px;min-width:150px" method="post"  action="?go=salvar"  enctype="multipart/form-data" ><div class="title"><h2>Editor de DJ</h2></div>
 
 
-<?php  
 
-echo  '<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="nome_real" required="required" value='. $nome_real.' placeholder="Nome real"/><span class="icon-place"></span></div></div>';
-echo  '<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="nome_art" required="required" value='. $nome_art.' placeholder="Nome artistico"/><span class="icon-place"></span></div></div>';
-echo  '<div class="element-phone"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="tel" pattern="[+]?[\.\s\-\(\)\*\#0-9]{3,}" maxlength="24" name="telefone" required="required"  placeholder="Telefone/Whatsapp" value='. $telefone.' /><span class="icon-place"></span></div></div>';
+<?php  //apos fazer a leitura do banco e salvar nas variaveis, aplica-se no formulario com os respectivos valores
+
+echo  '<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="nome_real" required="required" value="'. $nome_real.'" placeholder="Nome real"/><span class="icon-place"></span></div></div>';
+echo  '<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="nome_art" required="required" value="'. $nome_art.'" placeholder="Nome artistico"/><span class="icon-place"></span></div></div>';
+echo  '<div class="element-phone"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="tel" pattern="[+]?[\.\s\-\(\)\*\#0-9]{3,}" maxlength="24" name="telefone" required="required"  placeholder="Telefone/Whatsapp" value="'. $telefone.'" /><span class="icon-place"></span></div></div>';
 echo  '<div class="element-phone"><label class="title"></label><div class="item-cont"><input class="large" type="tel" pattern="[+]?[\.\s\-\(\)\*\#0-9]{3,}" maxlength="24" name="telefone2"';
   if ($telefone2 == null)
     {echo 'placeholder="Outro Telefone (opcional)" />';}
   else
-    {echo 'value='.$telefone2.' />';}
+    {echo 'value="'.$telefone2.'" />';}
 echo '<span class="icon-place"></span></div></div>';
 
 echo  '<div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="cidade"'; 
   if ($cidade == null)
       {echo 'placeholder="Cidade" />';}
   else
-      {echo 'value='.$cidade.' />';}
+      {echo 'value="'.$cidade.'" />';}
 echo '<span class="icon-place"></span></div></div>';
 
 echo  '<div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="estado"';
   if ($estado == null)
       {echo 'placeholder="Estado" />';}
   else
-      {echo 'value='.$estado.' />';}
+      {echo 'value="'.$estado.'" />';}
 echo '<span class="icon-place"></span></div></div>';
 
 echo  '<div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="medium" name="descricao" cols="20" rows="5"';
