@@ -209,7 +209,7 @@ $(function(){
       $vetorCarac = array();
 
       /// query2 = reponsavel por buscar todas as cidades e estados cadastrados no sitema para poder organizar depois.
-      $query2 = 'SELECT * from lista_sigla';
+      $query2 = 'SELECT * from lista_sigla ORDER BY estado_nome';
       $result2 = pg_query($query2);
 
       $cont_port=1; // conta quantos djs foram carregados do banco para exibir ao clicar neles (usado na parte de baixo do código)
@@ -329,18 +329,7 @@ $(function(){
         
       while (pg_fetch_row($result)){ //percorrendo as consulta do banco de dados e salvando nas respesctivas variaveis
       
-        //echo '<tr>';
-        //$count = count($row);
-        //$y = 0;
-        
-        /*while ($y < $count)
-        {
-            $c_row = current($row);
-            echo '<td>' . $c_row . '</td>';
-                
-            next($row);
-            $y = $y + 1;
-        }*/
+
         
         $nome_real = pg_fetch_result($result, $i, "nome_real"); 
         $nome_art = pg_fetch_result($result, $i, "nome_art"); 
@@ -356,58 +345,38 @@ $(function(){
         $j = 0;
         while($j <= $li_T2){
         
-          if(($exbirPorCidade) && $cidade == print_r($vetor_lista[$j][0], true)){ // se for true entao vai exibir por nome de cidade em ordem alfabetica
-              
-              echo 'Cidade: '.$cidade.'';
-              echo '<!-- Portfolio Item '.$cont_port.' -->';
-              echo '<div   class="col-md-6 col-lg-4">';
-              echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
-                  echo '<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">';
-                  echo '<div class="portfolio-item-caption-content text-center text-white">';
-                      echo '<i class="fas fa-plus fa-3x"></i>';
-                  echo '</div>';
-                  echo '</div>';
-                  
-                  echo '<img class="img-fluid" src="../img_djs/'.$img_nome.'" alt="">';
-                  
-                  echo '</div>';
-              echo '</div>';
-                  
-              $cont_dj = $cont_dj + 1;
-              $cont_port = $cont_port + 1;   
-              $i = $i + 1;
+        $nome_estado = print_r($vetor_lista[$j][1], true);
+        echo 'NOME ESTADO '.$nome_estado.'';
+        if($exbirPorEstado == true && $estado == $nome_estado){
+          
+            echo '<h3>Estado: '.$estado.'</h3>';
+            echo '<!-- Portfolio Item '.$cont_port.' -->';
+            echo '<div   class="col-md-6 col-lg-4">';
+            echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
+                echo '<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">';
+                echo '<div class="portfolio-item-caption-content text-center text-white">';
+                    echo '<i class="fas fa-plus fa-3x"></i>';
+                echo '</div>';
+                echo '</div>';
+                
+                echo '<img class="img-fluid" src="../img_djs/'.$img_nome.'" alt="">';
+                
+                echo '</div>';
+            echo '</div>';
+                
+            $cont_dj = $cont_dj + 1;
+            $cont_port = $cont_port + 1;   
+            $i = $i + 1;
+        }
 
-          }
+        $j = $j + 1;
 
-          elseif(($exbirPorEstado) && $estado == print_r($vetor_lista[$j][1], true)){
-            
-             echo 'Cidade: '.$estado.'';
-              echo '<!-- Portfolio Item '.$cont_port.' -->';
-              echo '<div   class="col-md-6 col-lg-4">';
-              echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
-                  echo '<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">';
-                  echo '<div class="portfolio-item-caption-content text-center text-white">';
-                      echo '<i class="fas fa-plus fa-3x"></i>';
-                  echo '</div>';
-                  echo '</div>';
-                  
-                  echo '<img class="img-fluid" src="../img_djs/'.$img_nome.'" alt="">';
-                  
-                  echo '</div>';
-              echo '</div>';
-                  
-              $cont_dj = $cont_dj + 1;
-              $cont_port = $cont_port + 1;   
-              $i = $i + 1;
-          }
-
-          $j = $j + 1;
-
-       }
+     }
 
 
-       // else{
-            ////// TODOS SEM ORDEM /////            
+       if(!$exbirPorEstado){
+            ////// TODOS SEM ORDEM /////    
+            echo '<h3>Estado: printou foi esse </h3>';        
             echo '<!-- Portfolio Item '.$cont_port.' -->';
             echo '<div   class="col-md-6 col-lg-4">';
             echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
@@ -426,8 +395,8 @@ $(function(){
             $cont_port = $cont_port + 1;   
             $i = $i + 1;
             //echo '</tr>';
-       // } 
-      }
+       } 
+    }
       pg_free_result($result);
     
   ?>
