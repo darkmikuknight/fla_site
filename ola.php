@@ -44,13 +44,14 @@ li a:hover:not(.active) {
 .active {
   background-color: #4CAF50;
 }
+
+body{
+    background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
+}
+
 </style>
 </head>
 <body>
-
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v3.3"></script>
-
 
 <ul>
   <li><a class="active" href="ola.php">Home</a></li>
@@ -60,8 +61,9 @@ li a:hover:not(.active) {
  
 </ul>
 
-
-<div class="fb-comments" data-href="http://appteste.flavinhodjjf.net/login/ola.php" data-width="1000" data-numposts="5"></div>
+<!--
+ <img align="right" src="turntable-310450_1280.png" alt="" style="width:500px; height500px;">
+-->
 
 </body>
 </html>

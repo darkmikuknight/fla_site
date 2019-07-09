@@ -14,12 +14,13 @@ $vetorDj = array();
 
 <head>
 
+  <link rel="shortcut icon" href="logotopdjsapp.ico" type="image/x-icon"/>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Freelancer - Start Bootstrap Theme</title>
+  <title>TOPDJ$</title>
 
   <!-- Custom fonts for this theme -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -28,7 +29,7 @@ $vetorDj = array();
 
   <!-- Theme CSS -->
   <link href="css/freelancer.min.css" rel="stylesheet">
-  
+  <!-- tema https://startbootstrap.com/themes/freelancer/ -->
   
 
    
@@ -38,20 +39,37 @@ $vetorDj = array();
 
 <style>
 
-  #search_param{
-    background-color: #1F85DE  !important;
+#search_param{
+    background-color: #373725  !important;
     font-size: 18px;
     padding: 10px;
     margin: -5px -1px;
+    border: none;
 
-  }
+}
 
-  #butn{
-    background-color: #1F85DE  !important;
+#butn{
+    background-color: #373725  !important;
     padding: 8px;
     margin: -3px -1px;
+    border: none;
+}
 
-  }
+#suporte{
+    color: #130cf3  !important;
+
+}
+
+#itemavatar{     
+ width: 500px !important;
+  height: 200px !important;
+}
+
+#parte_cima{
+     background-color: #cdca27  !important;
+
+}
+
    
 </style>
 
@@ -78,7 +96,7 @@ $(function(){
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">TOPDJ$APP</a>
       <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -89,10 +107,10 @@ $(function(){
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Portfolio</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Sobre</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contato</a>
           </li>
         </ul>
       </div>
@@ -100,11 +118,11 @@ $(function(){
   </nav>
 
   <!-- Masthead -->
-  <header class="masthead bg-primary text-white text-center">
+  <header id="parte_cima" class="masthead bg-primary text-white text-center">
     <div class="container d-flex align-items-center flex-column">
 
       <!-- Masthead Avatar Image -->
-      <img class="masthead-avatar mb-5" src="img/avataaars.svg" alt="">
+      <img id="itemavatar" class="masthead-avatar mb-5" src="img/indice.png" alt="">
 
       <!-- Masthead Heading -->
       <h1 class="masthead-heading text-uppercase mb-0">Busque por um DJ</h1>
@@ -211,7 +229,7 @@ $(function(){
       $i = 0; // numero de linhas na busca da tabela "djs"
       $texto_b = $_GET['texto_busca'];
        
-      echo '<td> "PASO="'.$texto_b.'</td>'; 
+      //echo '<td> "PASO="'.$texto_b.'</td>'; 
        
       // aqui comeca a verificacao dos filtros
       
@@ -221,7 +239,7 @@ $(function(){
           $result = pg_query($query);
           
           $num_lin = pg_num_rows($result);
-          echo '<td> "Num linhas2="'.$num_lin.'</td>';
+          //echo '<td> "Num linhas2="'.$num_lin.'</td>';
           
           if(pg_num_rows($result) == 0){
           echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado no sistema relacionado com "'.$texto_b.'"</h2></td>';
@@ -243,7 +261,7 @@ $(function(){
           
           elseif(empty($_GET['texto_busca'])){ // nao foi digitado nenhum texto na busca
             
-            $exbirPorCidade = true;
+            //$exbirPorCidade = true;
             $query = "SELECT * from djs ORDER BY cidade"; 
             $result = pg_query($query); 
           }
@@ -262,10 +280,11 @@ $(function(){
       elseif((isset($_GET['search_param'])) && $_GET['search_param'] == "estado"){ //busca filtrada por estado
       
           if(isset($_GET['texto_busca']) && empty($_GET['texto_busca']) == false){ // digitou algo na barra de busca
+          
               $texto_b = $_GET['texto_busca'];
-              echo '<td> "estaddo"'.$texto_b.'</td>'; 
+              //echo '<td> "estaddo"'.$texto_b.'</td>'; 
               //$query = "SELECT * from djs WHERE LOWER(estado) LIKE LOWER('%$texto_b%') ";
-              $query = "SELECT * from djs WHERE LOWER(estado) = LOWER((SELECT estado_nome FROM lista_sigla WHERE LOWER(estado_nome) LIKE LOWER('%$texto_b%') OR LOWER(sigla_estado) = LOWER('$texto_b'))) "; 
+              $query = "SELECT * from djs WHERE LOWER(estado) = LOWER((SELECT DISTINCT estado_nome FROM lista_sigla WHERE LOWER(estado_nome) LIKE LOWER('%$texto_b%') OR LOWER(sigla_estado) = LOWER('$texto_b'))) "; 
               $result = pg_query($query);
           }
           
@@ -274,7 +293,7 @@ $(function(){
           
           elseif(empty($_GET['texto_busca'])){ // nao foi digitado nenhum texto na busca
             
-            $exbirPorEstado = true;
+            //$exbirPorEstado = true;
             $query = "SELECT * from djs ORDER BY estado"; 
             $result = pg_query($query); 
           }
@@ -296,7 +315,7 @@ $(function(){
           $result = pg_query($query);
           
           $num_lin = pg_num_rows($result);
-          echo '<td> "Num linhas-1="'.$num_lin.'</td>';
+          //echo '<td> "Num linhas-1="'.$num_lin.'</td>';
           
           if(pg_num_rows($result) == 0){
           echo '<td> <h2>Desculpe! Não foi encontrado nenhum DJ cadastrado no sistema.</h2></td>';
@@ -319,11 +338,13 @@ $(function(){
         $estado = pg_fetch_result($result, $i, "estado"); 
         $descricao = pg_fetch_result($result, $i, "descricao"); 
         $img_nome= pg_fetch_result($result, $i, "img_nome");
+        $email= pg_fetch_result($result, $i, "email");
+        $website= pg_fetch_result($result, $i, "website");
         
-        $vetorDj[$i] =  array($nome_real, $nome_art, $telefone, $cidade, $estado, $img_nome, $descricao); //armazena as informacoes para serem usadas ao clicar nos portifolios        
+        $vetorDj[$i] =  array($nome_real, $nome_art, $telefone, $cidade, $estado, $img_nome, $descricao, $email, $website); //armazena as informacoes para serem usadas ao clicar nos portifolios        
         
        
-        echo '<h3>Estado: printou foi esse </h3>';        
+        //echo '<h3>Estado: printou foi esse </h3>';        
         echo '<!-- Portfolio Item '.$cont_port.' -->';
         echo '<div   class="col-md-6 col-lg-4">';
         echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
@@ -360,7 +381,7 @@ $(function(){
     <div class="container">
 
       <!-- About Section Heading -->
-      <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
+      <h2 class="page-section-heading text-center text-uppercase text-white">Sobre</h2>
 
       <!-- Icon Divider -->
       <div class="divider-custom divider-light">
@@ -374,18 +395,18 @@ $(function(){
       <!-- About Section Content -->
       <div class="row">
         <div class="col-lg-4 ml-auto">
-          <p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p>
+          <p class="lead">Somos uma plataforma que se propõem a juntar Djs e clientes para negociar livremente. E não nos responsabilizamos pelo serviço prestado pelos mesmos. Apenas facilitamos o encontro dos mesmos.</p>
         </div>
         <div class="col-lg-4 mr-auto">
-          <p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p>
+          <p class="lead">Esse aplicativo foi criado por Flávio Romano dos Santos (Flavinho DJ JF) com o intuíto de facilitar negócios. Para maiores dúvidas temos nosso suporte técnico. </p> <!--<a id="suporte" href="https://chat.whatsapp.com/KwrG06SudzfFprIB21p0hl">Acessar Suporte</a></p> -->
         </div>
       </div>
 
       <!-- About Section Button -->
       <div class="text-center mt-4">
-        <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/themes/freelancer/">
-          <i class="fas fa-download mr-2"></i>
-          Free Download!
+        <a id="suporte" class="btn btn-xl btn-outline-light" href="https://chat.whatsapp.com/KwrG06SudzfFprIB21p0hl">
+          <i class="fas fa-comments mr-2"></i>
+          Acessar Suporte
         </a>
       </div>
 
@@ -415,36 +436,36 @@ $(function(){
           <form name="sentMessage" id="contactForm" novalidate="novalidate">
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Name</label>
-                <input class="form-control" id="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter your name.">
+                <label>Nome</label>
+                <input class="form-control" id="name" type="text" placeholder="Nome" required="required" data-validation-required-message="Digite o seu nome.">
                 <p class="help-block text-danger"></p>
               </div>
             </div>
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Email Address</label>
-                <input class="form-control" id="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter your email address.">
+                <label>Endereço de e-mail</label>
+                <input class="form-control" id="email" type="email" placeholder="Endereço de e-mail">
                 <p class="help-block text-danger"></p>
               </div>
             </div>
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Phone Number</label>
-                <input class="form-control" id="phone" type="tel" placeholder="Phone Number" required="required" data-validation-required-message="Please enter your phone number.">
+                <label>Número de telefone (whatsapp)</label>
+                <input class="form-control" id="phone" type="tel" placeholder="Número de telefone (whatsapp)" required="required" data-validation-required-message="Por favor digite seu telefone (whatsapp).">
                 <p class="help-block text-danger"></p>
               </div>
             </div>
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Message</label>
-                <textarea class="form-control" id="message" rows="5" placeholder="Message" required="required" data-validation-required-message="Please enter a message."></textarea>
+                <label>Mensagem</label>
+                <textarea class="form-control" id="message" rows="5" placeholder="Mensagem" required="required" data-validation-required-message="Digite uma mensagem."></textarea>
                 <p class="help-block text-danger"></p>
               </div>
             </div>
             <br>
             <div id="success"></div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Send</button>
+              <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Enviar</button>
             </div>
           </form>
         </div>
@@ -467,17 +488,20 @@ $(function(){
 
         <!-- Footer Social Icons -->
         <div class="col-lg-4 mb-5 mb-lg-0">
-          <h4 class="text-uppercase mb-4">Around the Web</h4>
-          <a class="btn btn-outline-light btn-social mx-1" href="#">
+          <h4 class="text-uppercase mb-4">Me encontre também em:</h4>
+          <a class="btn btn-outline-light btn-social mx-1" href="https://www.facebook.com/flavinhodjjf/">
             <i class="fab fa-fw fa-facebook-f"></i>
           </a>
-          <a class="btn btn-outline-light btn-social mx-1" href="#">
+          <a class="btn btn-outline-light btn-social mx-1" href="https://twitter.com/flavinhodjjf">
             <i class="fab fa-fw fa-twitter"></i>
           </a>
-          <a class="btn btn-outline-light btn-social mx-1" href="#">
-            <i class="fab fa-fw fa-linkedin-in"></i>
+          <a class="btn btn-outline-light btn-social mx-1" href="https://www.instagram.com/flavinhodjjf/">
+            <i class="fab fa-fw fa-instagram"></i>
           </a>
-          <a class="btn btn-outline-light btn-social mx-1" href="#">
+          <a class="btn btn-outline-light btn-social mx-1" href="https://www.youtube.com/flavinhodjjf">
+            <i class="fab fa-fw fa-youtube"></i>
+          </a>
+           <a class="btn btn-outline-light btn-social mx-1" href="https://www.flavinhodjjf.net/">
             <i class="fab fa-fw fa-dribbble"></i>
           </a>
         </div>
@@ -496,7 +520,7 @@ $(function(){
   <!-- Copyright Section -->
   <section class="copyright py-4 text-center text-white">
     <div class="container">
-      <small>Copyright &copy; Your Website 2019</small>
+      <small>Copyright &copy; TOPDJ$APP 2019</small>
     </div>
   </section>
 
@@ -550,6 +574,8 @@ $(function(){
                     $cidade2=print_r($vetorDj[$j][3], true);
                     $estado2=print_r($vetorDj[$j][4], true);
                     $descricao2=print_r($vetorDj[$j][6], true);
+                    $email2=print_r($vetorDj[$j][7], true);
+                    $website2=print_r($vetorDj[$j][8], true);
                     //preg_match_all('!\d+!', print_r($vetorDj[$j][2], true), $telefone_2);
                     $tele=print_r($vetorDj[$j][2], true);
                     //$telefone_2=(int) filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
@@ -563,15 +589,27 @@ $(function(){
                     echo '<a href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text='.$nome_art2.'"><font size="5
                         "> Clique aqui para conversar no Whatsapp </font></a>';
                     echo '<!-- Portfolio Modal - Text -->'; //'.$cont_port.'/'.$cont_dj.'/'.$nome_img2.' '.$telefone_2.'
-                    echo '<p class="mb-5">
+                    echo '<p class="mb-4">
                     
                     <b>Nome:</b>  '.$nome_art2.' &nbsp &nbsp<b>Telefone:</b> '.$tele.'<br />
                     <b>Cidade:</b> '.$cidade2.'  &nbsp &nbsp<b>Estado:</b> '.$estado2.'<br />';
-                    if(!empty($descricao2))
-                      echo '<b>Descrição:</b> '.$descricao2.'</p>';
+                    if(!empty($descricao2)){
+                        echo '<b>Descrição:</b> '.$descricao2.' ';
+                        echo '<br />';
+                    }
+                    
+                    if(!empty($email2)){
+                        echo '<b>E-mail: </b><a href="mailto:'.$email2.'"> '.$email2.'</a>';
+                        echo ' &nbsp &nbsp';
+                    }
+                    if(!empty($website2)){
+                        echo '<b>Website: </b><a href="'.$website2.'"> '.$website2.'</a></p>';
+                        //echo '<br />';
+                    }
+                    
                     
                     ?>
-                
+                    <br />
                     <button class="btn btn-primary" href="#" data-dismiss="modal">
                     <i class="fas fa-times fa-fw"></i>
                     Fechar Janela
