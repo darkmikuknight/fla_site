@@ -4,7 +4,7 @@ include "db_postConfig.php";
  //require_once "config.php";
 
 
- 
+
 
 //https://www.youtube.com/watch?v=rHPWkoXFIKM
 
@@ -94,6 +94,8 @@ li a:hover:not(.active) {
 	<div class="element-phone"><label class="title"></label><div class="item-cont"><input class="large" type="tel" pattern="[+]?[\.\s\-\(\)\*\#0-9]{3,}" maxlength="24" name="telefone2" placeholder="Outro Telefone (opcional)" value=""/><span class="icon-place"></span></div></div>
 	<div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="cidade" placeholder="Cidade"/><span class="icon-place"></span></div></div>
 	<div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="estado" placeholder="Estado"/><span class="icon-place"></span></div></div>
+	<div class="element-email"><label class="title"></label><div class="item-cont"><input class="large" type="email" name="email" value="" placeholder="Email"/><span class="icon-place"></span></div></div>
+	<div class="element-url"><label class="title"></label><div class="item-cont"><input class="large" type="url" name="website"  placeholder="Website"/><span class="icon-place"></span></div></div>	
 	<div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="medium" name="descricao" cols="20" rows="5" placeholder="Descriçao (opcional)"></textarea><span class="icon-place"></span></div></div>
 	<div id="up">
         Upload a File:
@@ -126,6 +128,8 @@ if(@$_GET['go'] == 'cadastrar') // && @$_GET['upload'] == 'enviar')
 	$cidade = $_POST['cidade'];
 	$estado = $_POST['estado'];
 	$descricao = $_POST['descricao'];
+	$email = $_POST['email'];
+	$website = $_POST['website'];
 	
 	
 	$data = date('Y-m-d');
@@ -208,7 +212,7 @@ if(@$_GET['go'] == 'cadastrar') // && @$_GET['upload'] == 'enviar')
         if (move_uploaded_file($_FILES["myfile"]["tmp_name"], $target_file)) {
 
           echo " The file ". basename( $_FILES["myfile"]["name"]). " has been uploaded.";
-          $result = pg_query("insert into djs (nome_real, nome_art, telefone, telefone2, cidade, estado, descricao, img_nome) values ('$nome_real', '$nome_art', '$telefone', '$telefone2', '$cidade', '$estado', '$descricao', '$nome_completo')"); 
+          $result = pg_query("insert into djs (nome_real, nome_art, telefone, telefone2, cidade, estado, descricao, img_nome, email, website) values ('$nome_real', '$nome_art', '$telefone', '$telefone2', '$cidade', '$estado', '$descricao', '$nome_completo', '$email', '$website')"); 
           
           echo "<script>alert('Usuario cadastrado com sucesso!');</script>";
           echo '<script language = "JavaScript" >
