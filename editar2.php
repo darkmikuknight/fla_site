@@ -101,7 +101,7 @@ li a:hover:not(.active) {
 <ul>
   <li><a class="active" href="#">Editor de DJ</a></li>
   <li><a  href="login/gerenciador.php">Voltar</a></li>
-  <li style="float:right"><a href="sair.php">Sair</a></li>
+  <li style="float:right"><a href="login/sair.php">Sair</a></li>
   
 </ul>
 

@@ -75,9 +75,9 @@ li a:hover:not(.active) {
 
 <ul>
   <li><a href="login/ola.php">Home</a></li>
-  <li><a class="active" href="../Formoid22.php">Cadastro de DJs</a></li>
+  <li><a class="active" href="Formoid22.php#">Cadastro de DJs</a></li>
   <li><a  href="login/gerenciador.php">Gerenciar DJs</a></li>
-  <li style="float:right"><a href="sair.php">Sair</a></li>
+  <li style="float:right"><a href="login/sair.php">Sair</a></li>
   
 </ul>
 
