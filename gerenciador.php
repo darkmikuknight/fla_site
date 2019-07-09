@@ -161,16 +161,9 @@ function checkDelete(){
 
       if($fieldName == "img_nome" && $i == 8)
         echo '<td>Nome da Imagem</td>';
-        
-      if($fieldName == "email" && $i == 9)
-        echo '<td>E-mail</td>';
-     
-      if($fieldName == "website" && $i == 10)
-        echo '<td>Website</td>';
 
-      elseif($i==0){
-        echo '<td>' .$fieldName. '</td>';
-        }
+      elseif($i==0)
+        echo '<td>' . $fieldName . '</td>';
 
       $i = $i + 1;
     }
@@ -194,8 +187,8 @@ function checkDelete(){
      $id= pg_fetch_result($result, $i, "id_dj"); // result eh a query toda, $i eh a linha atual e o "id_dj" eh a coluna que eu quero pegar
      $nome_real= pg_fetch_result($result, $i, "nome_real");
      
-      //echo '<td> "ID="'.$id.'</td>';
-      //echo '<td> "ID="'.$nome_real.'</td>';
+      echo '<td> "ID="'.$id.'</td>';
+      echo '<td> "ID="'.$nome_real.'</td>';
       echo  '<td>   <a href="../editar2.php?id='.$id.'" class="btn btn-warning"" role="button" >Edit</a>';  
       ?>
 

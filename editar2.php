@@ -131,8 +131,6 @@ while ($row = pg_fetch_row($result))
    $estado = pg_fetch_result($result, $i, "estado"); 
    $descricao = pg_fetch_result($result, $i, "descricao"); 
    $img_nome = pg_fetch_result($result, $i, "img_nome"); 
-   $email = pg_fetch_result($result, $i, "email"); 
-   $website = pg_fetch_result($result, $i, "website"); 
    //$img_src = 
    //$id = $_GET['id'];
   //echo '<td> "IDNOME="'.$nome_real.'</td>';
@@ -179,21 +177,6 @@ echo  '<div class="element-textarea"><label class="title"></label><div class="it
       {echo '/>'.$descricao.'</textarea>';}
 echo '<span class="icon-place"></span></div></div>';
 
-echo '<div class="element-email"><label class="title"></label><div class="item-cont"><input class="large" type="email" name="email"';
-    if($email == null)
-        {echo 'placeholder="Email"/>';}
-    else
-        {echo 'value="'.$email.'" />';}
-echo '<span class="icon-place"></span></div></div>';
-
-echo '<div class="element-url"><label class="title"></label><div class="item-cont"><input class="large" type="url" name="website"';
-    if($website == null)
-        {echo 'placeholder="Website"/>';}
-    else
-        {echo 'value="'.$website.'" />';}
-echo '<span class="icon-place"></span></div></div>';
-
-
 echo '<input type="hidden" id="id" name="id" value='.$id.'>';
 
 echo '<div id="up">
@@ -232,9 +215,7 @@ if(@$_GET['go'] == 'salvar') // && @$_GET['upload'] == 'enviar')
 	$cidade_2 = $_POST['cidade'];
 	$estado_2 = $_POST['estado'];
 	$descricao_2 = $_POST['descricao'];
-    $id_2 = $_POST['id'];
-    $email_2 = $_POST['email'];
-    $website_2 = $_POST['website'];
+  $id_2 = $_POST['id'];
 	
 	
 	$data = date('Y-m-d');
@@ -314,7 +295,7 @@ if(@$_GET['go'] == 'salvar') // && @$_GET['upload'] == 'enviar')
         if (move_uploaded_file($_FILES["myfile"]["tmp_name"], $target_file)) {
 
           echo " The file ". basename( $_FILES["myfile"]["name"]). " has been uploaded.";
-          $result = pg_query("UPDATE djs SET  (nome_real, nome_art, telefone, telefone2, cidade, estado, descricao, img_nome, email, website) = ('$nome_real_2', '$nome_art_2', '$telefone_2', '$telefone2_2', '$cidade_2', '$estado_2', '$descricao_2', '$nome_completo', '$email_2', '$website_2') WHERE id_dj ='$id_2' "); 
+          $result = pg_query("UPDATE djs SET  (nome_real, nome_art, telefone, telefone2, cidade, estado, descricao, img_nome) = ('$nome_real_2', '$nome_art_2', '$telefone_2', '$telefone2_2', '$cidade_2', '$estado_2', '$descricao_2', '$nome_completo') WHERE id_dj ='$id_2' "); 
           echo "<script>alert('Usuario atualizado com sucesso!');</script>";
           echo '<meta HTTP-EQUIV="Refresh" CONTENT="0; URL=login/ola.php">';
 

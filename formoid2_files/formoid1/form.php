@@ -27,8 +27,6 @@ require_once _DIR_ . '/handler.php';
 	<div class="element-input<?php frmd_add_class("input2"); ?>"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="input2" placeholder="Cidade"/><span class="icon-place"></span></div></div>
 	<div class="element-input<?php frmd_add_class("input3"); ?>"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="input3" placeholder="Estado"/><span class="icon-place"></span></div></div>
 	<div class="element-textarea<?php frmd_add_class("textarea"); ?>"><label class="title"></label><div class="item-cont"><textarea class="medium" name="textarea" cols="20" rows="5" placeholder="Descriçao (opcional)"></textarea><span class="icon-place"></span></div></div>
-	<div class="element-email<?php frmd_add_class("email"); ?>"><label class="title"></label><div class="item-cont"><input class="large" type="email" name="email" value="" placeholder="Email"/><span class="icon-place"></span></div></div>
-	<div class="element-url<?php frmd_add_class("url"); ?>"><label class="title"></label><div class="item-cont"><input class="large" type="url" name="url"  placeholder="Website"/><span class="icon-place"></span></div></div>
 <div class="submit"><input type="submit" value="Cadastrar"/></div></form><script type="text/javascript" src="<?php echo dirname($form_path); ?>/formoid-solid-blue.js"></script>
 
 <!-- Stop Formoid form-->
