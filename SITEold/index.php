@@ -309,7 +309,7 @@ $(function(){
         
         
       while (pg_fetch_row($result)){ //percorrendo as consulta do banco de dados e salvando nas respesctivas variaveis
-      
+       
 
         $nome_real = pg_fetch_result($result, $i, "nome_real"); 
         $nome_art = pg_fetch_result($result, $i, "nome_art"); 

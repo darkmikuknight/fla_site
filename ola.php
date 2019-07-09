@@ -6,7 +6,7 @@ if($_SESSION["loggedIn"] != true) {
 }
 //echo("Enter my lord!");
 ?>
-
+ 
 <!DOCTYPE html>
 <html>
 <head>
