@@ -39,20 +39,48 @@ $vetorDj = array();
 
 <style>
 
-#search_param{
-    background-color: #373725  !important;
-    font-size: 18px;
-    padding: 10px;
-    margin: -5px -1px;
-    border: none;
-
+.search_param:active{
+   outline: none;
 }
 
-#butn{
+#search_param{
     background-color: #373725  !important;
-    padding: 8px;
-    margin: -3px -1px;
+    font-size: 16px;
+    padding: 9px;
+    margin: 1px -2px; 
+    border: none !important;
+    outline: none !important;
+    box-shadow: none;
+}
+
+
+
+ .search_param:hover {
+
+    color: #fff;
+    background-color: #cdca27 !important;
+    border-color: #cdca27;
+}
+
+ button:hover {
+
+    color: #fff;
+    background-color: #cdca27 !important;
+    border-color: #cdca27;
+}
+	
+
+#butn{
+    background-color: #373725;  
+    padding: 7px;
+    margin: 1px -1px;
     border: none;
+}
+ #butn:hover {
+
+    color: #fff;
+    background-color: #cdca27 !important;
+    border-color: #cdca27;
 }
 
 #suporte{
@@ -60,14 +88,12 @@ $vetorDj = array();
 
 }
 
-#itemavatar{     
- width: 500px !important;
-  height: 200px !important;
+#btnEnviar{
+    border: none !important;
 }
 
 #parte_cima{
      background-color: #cdca27  !important;
-
 }
 
    
@@ -122,7 +148,7 @@ $(function(){
     <div class="container d-flex align-items-center flex-column">
 
       <!-- Masthead Avatar Image -->
-      <img id="itemavatar" class="masthead-avatar mb-5" src="img/indice.png" alt="">
+      <img class="masthead-avatar mb-5" src="img/avataaars.svg" alt="">
 
       <!-- Masthead Heading -->
       <h1 class="masthead-heading text-uppercase mb-0">Busque por um DJ</h1>
@@ -130,33 +156,9 @@ $(function(){
 
       
    <?php /*   
-
-<div class="container" style="margin-top: 8%;">
-<div class="col-md-6 col-md-offset-3">     
-<div class="row">
-<form align="center" role="form" id="form-buscar">
-<div class="form-group">
-<div class="input-group">
-<input id="1" class="form-control" type="text" name="search" placeholder="Search..." required/>
-<span class="input-group-btn">
-<button class="btn btn-success" type="submit">
-<i class="glyphicon glyphicon-search" aria-hidden="true"></i> Search
-</button>
-</span>
-</div>
-</div>
-</form>
-</div>            
-</div>
-</div>   
-
-
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-
-
 */ ?>
 
 <br />
@@ -164,28 +166,20 @@ $(function(){
 <div class="input-group">
     <div class="input-group-btn search-panel">
 		 <select name="search_param" id="search_param" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            <option value="filtrar">Filtrar por:   
-                            </option>
-                            <option value="cidade">Cidade</option>
-                            <option value="estado">Estado</option>
-                            <option value="todos">Todos</option>
-                        </select>
+                <option value="filtrar">Filtrar por:</option>
+                <option value="cidade">Cidade</option>
+                <option value="estado">Estado</option>
+                <option value="todos">Todos</option>
+        </select>
   </div>
 
 	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Buscar..." id="search_key" value="">
 	<span class="input-group-btn">
 
-			<button class="btn btn-info" id="butn" type="submit">  Buscar  </button>
+			<button class="btn btn-info" id="butn" type="submit"> Buscar </button>
 	</span>
 </div>
 </form>
-
-
-
-
-
-
-
 
       <!-- Icon Divider -->
       <div class="divider-custom divider-light">
@@ -418,7 +412,7 @@ $(function(){
     <div class="container">
 
       <!-- Contact Section Heading -->
-      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contact Me</h2>
+      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contato</h2>
 
       <!-- Icon Divider -->
       <div class="divider-custom">
@@ -465,7 +459,7 @@ $(function(){
             <br>
             <div id="success"></div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Enviar</button>
+              <button id="btnEnviar" type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Enviar</button>
             </div>
           </form>
         </div>
@@ -488,7 +482,7 @@ $(function(){
 
         <!-- Footer Social Icons -->
         <div class="col-lg-4 mb-5 mb-lg-0">
-          <h4 class="text-uppercase mb-4">Me encontre também em:</h4>
+          <h4 class="text-uppercase mb-4">Outros canais de comunicação:</h4>
           <a class="btn btn-outline-light btn-social mx-1" href="https://www.facebook.com/flavinhodjjf/">
             <i class="fab fa-fw fa-facebook-f"></i>
           </a>
@@ -508,7 +502,7 @@ $(function(){
 
         <!-- Footer About Text -->
         <div class="col-lg-4">
-          <h4 class="text-uppercase mb-4">About Freelancer</h4>
+          <h4 class="text-uppercase mb-4">Ignorar</h4>
           <p class="lead mb-0">Freelance is a free to use, MIT licensed Bootstrap theme created by
             <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
         </div>
