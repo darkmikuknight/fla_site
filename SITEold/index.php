@@ -40,45 +40,38 @@ $vetorDj = array();
 <style>
 
 #search_param:hover {
-
-    color: #fff;
-    background-color: #051BF3 !important;
-    border-color: #cdca27;
+  color: #fff;
+  background-color: #051BF3 !important;
+  border-color: #cdca27;
 }
-
 
 #search_param{
-    background-color: #2B343E  !important;
-    font-size: 16px;
-    padding: 9px;
-    margin: 0px -2px; 
-    border: none !important;
-    outline: none !important;
-    box-shadow: none;
-    border-radius: .3rem
+  background-color: #2B343E  !important;
+  font-size: 16px;
+  padding: 9px;
+  margin: 0px -2px; 
+  border: none !important;
+  outline: none !important;
+  box-shadow: none;
+  border-radius: .3rem
 }
-
 
 #butn:hover{
-
-    color: #fff;
-    background-color: #051BF3 !important;
-    border-color: #cdca27;
+  color: #fff;
+  background-color: #051BF3 !important;
+  border-color: #cdca27;
 }
-
 
 #butn{
-    background-color: #2B343E;  
-    padding: 7px;
-    margin: 1px -1px;
-    border: none;
-    border-radius: .3rem
+  background-color: #2B343E;  
+  padding: 7px;
+  margin: 1px -1px;
+  border: none;
+  border-radius: .3rem
 }
 
-
 #suporte{
-    color: #130cf3  !important;
-
+  color: #130cf3  !important;
 }
 
 #btnEnviar:hover{
@@ -89,11 +82,19 @@ $vetorDj = array();
 }
 
 #btnEnviar{
-    border: none !important;
+  border: none !important;
 }
 
+#btnFecharJanela:hover{
+  color: #fff;
+  background-color: #2B343E !important;
+  border-color: #cdca27;     
+}
+
+
+
 #parte_cima{
-     background-color: #cdca27  !important;
+  background-color: #cdca27  !important;
 }
 
    
@@ -106,16 +107,23 @@ $(function(){
     $(".input-group-btn .dropdown-menu li a").click(function(){
 
         var selText = $(this).html();
-    
         //working version - for single button //
-       //$('.btn:first-child').html(selText+'<span class="caret"></span>');  
-       
+       //$('.btn:first-child').html(selText+'<span class="caret"></span>');    
        //working version - for multiple buttons //
        $(this).parents('.input-group-btn').find('.btn-search').html(selText);
-
    });
-
 });
+
+function mDown(obj) { //botao esquerdo do mouse pressionado
+  obj.style.backgroundColor = "#c7c414";
+  //obj.innerHTML = "Release Me";
+}
+
+function mUp(obj) { //botao esquerdo do mouse solto
+  obj.style.backgroundColor="#cdca27";
+  //obj.innerHTML="Enviando...";
+}
+
 </script>
 
 
@@ -176,7 +184,7 @@ $(function(){
 	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Buscar..." id="search_key" value="">
 	<span class="input-group-btn">
 
-			<button  id="butn" class="btn btn-info"  type="submit"> Buscar </button>
+			<button  id="butn" onmousedown="mDown(this)" class="btn btn-info"  type="submit"> Buscar </button>
 	</span>
 </div>
 </form>
@@ -459,7 +467,7 @@ $(function(){
             <br>
             <div id="success"></div>
             <div class="form-group">
-              <button id="btnEnviar" type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Enviar</button>
+              <button id="btnEnviar" onmousedown="mDown(this)" onmouseup="mUp(this)" type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Enviar</button>
             </div>
           </form>
         </div>
@@ -604,7 +612,7 @@ $(function(){
                     
                     ?>
                     <br />
-                    <button class="btn btn-primary" href="#" data-dismiss="modal">
+                    <button id="btnFecharJanela" onmousedown="mDown(this)" class="btn btn-primary" href="#" data-dismiss="modal">
                     <i class="fas fa-times fa-fw"></i>
                     Fechar Janela
                     </button>               
