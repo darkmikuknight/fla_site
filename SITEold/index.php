@@ -39,53 +39,53 @@ $vetorDj = array();
 
 <style>
 
-.search_param:active{
-   outline: none;
+#search_param:hover {
+
+    color: #fff;
+    background-color: #051BF3 !important;
+    border-color: #cdca27;
 }
 
+
 #search_param{
-    background-color: #373725  !important;
+    background-color: #2B343E  !important;
     font-size: 16px;
     padding: 9px;
-    margin: 1px -2px; 
+    margin: 0px -2px; 
     border: none !important;
     outline: none !important;
     box-shadow: none;
+    border-radius: .3rem
 }
 
 
-
- .search_param:hover {
+#butn:hover{
 
     color: #fff;
-    background-color: #cdca27 !important;
+    background-color: #051BF3 !important;
     border-color: #cdca27;
 }
 
- button:hover {
-
-    color: #fff;
-    background-color: #cdca27 !important;
-    border-color: #cdca27;
-}
-	
 
 #butn{
-    background-color: #373725;  
+    background-color: #2B343E;  
     padding: 7px;
     margin: 1px -1px;
     border: none;
+    border-radius: .3rem
 }
- #butn:hover {
 
-    color: #fff;
-    background-color: #cdca27 !important;
-    border-color: #cdca27;
-}
 
 #suporte{
     color: #130cf3  !important;
 
+}
+
+#btnEnviar:hover{
+
+  color: #fff;
+  background-color: #2B343E !important;
+  border-color: #cdca27;  
 }
 
 #btnEnviar{
@@ -176,7 +176,7 @@ $(function(){
 	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Buscar..." id="search_key" value="">
 	<span class="input-group-btn">
 
-			<button class="btn btn-info" id="butn" type="submit"> Buscar </button>
+			<button  id="butn" class="btn btn-info"  type="submit"> Buscar </button>
 	</span>
 </div>
 </form>
