@@ -460,7 +460,7 @@ function mUp(obj) { //botao esquerdo do mouse solto
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
                 <label>Mensagem</label>
-                <textarea class="form-control" id="message" rows="5" placeholder="Mensagem" required="required" data-validation-required-message="Digite uma mensagem."></textarea>
+                <textarea class="form-control" id="message" rows="3" placeholder="Mensagem" required="required" data-validation-required-message="Digite uma mensagem."></textarea>
                 <p class="help-block text-danger"></p>
               </div>
             </div>
