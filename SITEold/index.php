@@ -115,7 +115,7 @@ $(function(){
 });
 
 function mDown(obj) { //botao esquerdo do mouse pressionado
-  obj.style.backgroundColor = "#c7c414";
+  obj.style.backgroundColor = "#706f12";
   //obj.innerHTML = "Release Me";
 }
 
