@@ -446,7 +446,7 @@ function mUp(obj) { //botao esquerdo do mouse solto
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
                 <label>Endereço de e-mail</label>
-                <input class="form-control" id="email" type="email" placeholder="Endereço de e-mail">
+                <input class="form-control" id="email" type="email" placeholder="Endereço de e-mail" required="required" data-validation-required-message="Digite seu e-mail." >
                 <p class="help-block text-danger"></p>
               </div>
             </div>

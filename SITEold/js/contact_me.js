@@ -20,7 +20,7 @@ $(function() {
       $this = $("#sendMessageButton");
       $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
       $.ajax({
-        url: "././mail/contact_me.php",
+        url: "../mail/contact_me.php",
         type: "POST",
         data: {
           name: name,
@@ -35,7 +35,7 @@ $(function() {
           $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
             .append("</button>");
           $('#success > .alert-success')
-            .append("<strong>Sua mensagem foi enviada! </strong>");
+            .append("<strong>Sua mensagem foi enviada!</strong>");
           $('#success > .alert-success')
             .append('</div>');
           //clear all fields
@@ -49,7 +49,7 @@ $(function() {
           $('#success > .alert-danger').append($("<strong>").text("Desculpe " + firstName + ", parece que o servidor de e-mail não está respondendo. Por favor tente mais tarde!"));
           $('#success > .alert-danger').append('</div>');
           //clear all fields
-          $('#contactForm').trigger("reset");
+          //$('#contactForm').trigger("reset");
         },
         complete: function() {
           setTimeout(function() {
