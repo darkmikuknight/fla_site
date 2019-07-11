@@ -74,14 +74,14 @@ $vetorDj = array();
   color: #130cf3  !important;
 }
 
-#btnEnviar:hover{
+#sendMessageButton:hover{
 
   color: #fff;
   background-color: #2B343E !important;
   border-color: #cdca27;  
 }
 
-#btnEnviar{
+#sendMessageButton{
   border: none !important;
 }
 
@@ -184,7 +184,7 @@ function mUp(obj) { //botao esquerdo do mouse solto
 	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Buscar..." id="search_key" value="">
 	<span class="input-group-btn">
 
-			<button  id="butn" onmousedown="mDown(this)" class="btn btn-info"  type="submit"> Buscar </button>
+			<button  id="butn"  class="btn btn-info"  type="submit"> Buscar </button>
 	</span>
 </div>
 </form>
@@ -252,9 +252,9 @@ function mUp(obj) { //botao esquerdo do mouse solto
       
           if(isset($_GET['texto_busca']) && empty($_GET['texto_busca']) == false){ // digitou algo na barra de busca
               $texto_b = $_GET['texto_busca'];
-              echo '<td> "cidade"'.$texto_b.'</td>'; 
+              //echo '<td> "cidade"'.$texto_b.'</td>'; 
               //$query = "SELECT * from djs WHERE LOWER(cidade) LIKE LOWER('%$texto_b%') ";
-              $query = "SELECT * from djs WHERE LOWER(cidade) = LOWER((SELECT cidade_nome FROM lista_sigla WHERE LOWER(cidade_nome) LIKE LOWER('%$texto_b%') OR LOWER(sigla_cidade) = LOWER('$texto_b'))) "; 
+              $query = "SELECT * from djs WHERE remove_acento(LOWER(cidade)) = remove_acento(LOWER((SELECT cidade_nome FROM lista_sigla WHERE remove_acento(LOWER(cidade_nome)) LIKE remove_acento(LOWER('%$texto_b%')) OR LOWER(sigla_cidade) = LOWER('$texto_b')))) "; 
               $result = pg_query($query);
           }
           
@@ -286,8 +286,17 @@ function mUp(obj) { //botao esquerdo do mouse solto
               $texto_b = $_GET['texto_busca'];
               //echo '<td> "estaddo"'.$texto_b.'</td>'; 
               //$query = "SELECT * from djs WHERE LOWER(estado) LIKE LOWER('%$texto_b%') ";
-              $query = "SELECT * from djs WHERE LOWER(estado) = LOWER((SELECT DISTINCT estado_nome FROM lista_sigla WHERE LOWER(estado_nome) LIKE LOWER('%$texto_b%') OR LOWER(sigla_estado) = LOWER('$texto_b'))) "; 
+
+            if($texto_b == "sp"){ // "if" usado para corrigir o bug do "sp" na busca que resulta em mais de 1 linha (sao paulo e esprito santo) que causa um erro na busca
+              $query = "SELECT * from djs WHERE remove_acento(LOWER(estado)) = remove_acento(LOWER((SELECT DISTINCT estado_nome FROM lista_sigla WHERE remove_acento(LOWER(sigla_estado)) = remove_acento(LOWER('$texto_b')))))"; 
               $result = pg_query($query);
+            }
+
+            else{ // complementado o resto da busca sem ser com "sp"
+               $query = "SELECT * from djs WHERE remove_acento(LOWER(estado)) = remove_acento(LOWER((SELECT DISTINCT estado_nome FROM lista_sigla WHERE remove_acento(LOWER(estado_nome)) LIKE remove_acento(LOWER('%$texto_b%')) OR LOWER(sigla_estado) = LOWER('$texto_b')))) "; 
+              $result = pg_query($query);
+
+            }
           }
           
           //$num_lin = pg_num_rows($result);
@@ -467,7 +476,7 @@ function mUp(obj) { //botao esquerdo do mouse solto
             <br>
             <div id="success"></div>
             <div class="form-group">
-              <button id="btnEnviar" onmousedown="mDown(this)" onmouseup="mUp(this)" type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Enviar</button>
+              <button onmousedown="mDown(this)" onmouseup="mUp(this)" type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Enviar</button>
             </div>
           </form>
         </div>
