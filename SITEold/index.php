@@ -124,6 +124,28 @@ function mUp(obj) { //botao esquerdo do mouse solto
   //obj.innerHTML="Enviando...";
 }
 
+function remove_caractere() {
+  var str = document.getElementById("texto_busca").innerHTML; 
+  
+  var res = str.replace(/bo/g, "");
+  document.getElementById("texto_busca").innerHTML = res;
+
+  /* var str = document.getElementById("tt").value; 
+  var res = str.replace(/tes/g, "");
+  //res.innerHTML = res;
+  document.getElementById("tt").document.write(res)
+  //document.getElementById("tt") = res;
+  //document.getElementById("points").value= new Number(request.responseText);
+  */
+
+/*
+function setEmail(email) {
+   document.getElementById("email").setAttribute('value', email);
+}*/
+
+  // https://www.w3schools.com/html/tryit.asp?filename=tryhtml_form_submit
+}
+
 </script>
 
 
@@ -184,7 +206,7 @@ function mUp(obj) { //botao esquerdo do mouse solto
 	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Buscar..." id="search_key" value="">
 	<span class="input-group-btn">
 
-			<button  id="butn"  class="btn btn-info"  type="submit"> Buscar </button>
+			<button  id="butn" onclick="remove_caractere()" class="btn btn-info"  type="submit"> Buscar </button>
 	</span>
 </div>
 </form>
@@ -230,12 +252,14 @@ function mUp(obj) { //botao esquerdo do mouse solto
       $cont_port=1; // conta quantos djs foram carregados do banco para exibir ao clicar neles (usado na parte de baixo do código)
       $i = 0; // numero de linhas na busca da tabela "djs"
       $texto_b = $_GET['texto_busca'];
+
+      $texto_b = str_replace('%', '', $texto_b); // retirando o '%', pois causa um erro ao executar
        
       //echo '<td> "PASO="'.$texto_b.'</td>'; 
        
       // aqui comeca a verificacao dos filtros
       
-      if((!(isset($_GET['search_param'])) || $_GET['search_param'] == "filtrar" || $_GET['search_param'] == "todos") && (isset($_GET['texto_busca']))){ // não foi usado nenhum filtro e qualquer texto de busca
+      if((!(isset($_GET['search_param'])) || $_GET['search_param'] == "filtrar" || $_GET['search_param'] == "todos") && (!empty($texto_b))){ // não foi usado nenhum filtro e qualquer texto de busca
       
           $query = "SELECT * from djs WHERE LOWER(nome_real) LIKE LOWER('%$texto_b%') OR LOWER(nome_art) LIKE LOWER('%$texto_b%') OR LOWER(descricao) LIKE LOWER('%$texto_b%') ";
           $result = pg_query($query);
@@ -250,8 +274,8 @@ function mUp(obj) { //botao esquerdo do mouse solto
       
       elseif((isset($_GET['search_param'])) && $_GET['search_param'] == "cidade"){ //busca filtrada por cidade
       
-          if(isset($_GET['texto_busca']) && empty($_GET['texto_busca']) == false){ // digitou algo na barra de busca
-              $texto_b = $_GET['texto_busca'];
+          if(isset($_GET['texto_busca']) && !empty($texto_b)){ // digitou algo na barra de busca
+              //$texto_b = $_GET['texto_busca'];
               //echo '<td> "cidade"'.$texto_b.'</td>'; 
               //$query = "SELECT * from djs WHERE LOWER(cidade) LIKE LOWER('%$texto_b%') ";
               $query = "SELECT * from djs WHERE remove_acento(LOWER(cidade)) = remove_acento(LOWER((SELECT cidade_nome FROM lista_sigla WHERE remove_acento(LOWER(cidade_nome)) LIKE remove_acento(LOWER('%$texto_b%')) OR LOWER(sigla_cidade) = LOWER('$texto_b')))) "; 
@@ -261,7 +285,7 @@ function mUp(obj) { //botao esquerdo do mouse solto
           //$num_lin = pg_num_rows($result);
           //echo '<td> "Num linhas1="'.$num_lin.'</td>';
           
-          elseif(empty($_GET['texto_busca'])){ // nao foi digitado nenhum texto na busca
+          elseif(empty($texto_b)){ // nao foi digitado nenhum texto na busca
             
             //$exbirPorCidade = true;
             $query = "SELECT * from djs ORDER BY cidade"; 
@@ -281,9 +305,9 @@ function mUp(obj) { //botao esquerdo do mouse solto
       
       elseif((isset($_GET['search_param'])) && $_GET['search_param'] == "estado"){ //busca filtrada por estado
       
-          if(isset($_GET['texto_busca']) && empty($_GET['texto_busca']) == false){ // digitou algo na barra de busca
+          if(isset($_GET['texto_busca']) && !empty($texto_b)){ // digitou algo na barra de busca
           
-              $texto_b = $_GET['texto_busca'];
+              //$texto_b = $_GET['texto_busca'];
               //echo '<td> "estaddo"'.$texto_b.'</td>'; 
               //$query = "SELECT * from djs WHERE LOWER(estado) LIKE LOWER('%$texto_b%') ";
 
@@ -302,7 +326,7 @@ function mUp(obj) { //botao esquerdo do mouse solto
           //$num_lin = pg_num_rows($result);
           //echo '<td> "Num linhas1="'.$num_lin.'</td>';
           
-          elseif(empty($_GET['texto_busca'])){ // nao foi digitado nenhum texto na busca
+          elseif(empty($texto_b)){ // nao foi digitado nenhum texto na busca
             
             //$exbirPorEstado = true;
             $query = "SELECT * from djs ORDER BY estado"; 
@@ -361,12 +385,10 @@ function mUp(obj) { //botao esquerdo do mouse solto
         echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
             echo '<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">';
             echo '<div class="portfolio-item-caption-content text-center text-white">';
-                echo '<i class="fas fa-plus fa-3x"></i>';
+            echo '<i class="fas fa-plus fa-3x"></i>';
             echo '</div>';
             echo '</div>';
-            
-            echo '<img class="img-fluid" src="../img_djs/'.$img_nome.'" alt="">';
-            
+            echo '<img class="img-fluid" src="../img_djs/'.$img_nome.'" alt="">';          
             echo '</div>';
         echo '</div>';
             
@@ -380,11 +402,8 @@ function mUp(obj) { //botao esquerdo do mouse solto
   ?>
     </div>
       <!-- /.row -->
-
     </div>
-  </section>
-   
-   
+  </section> 
  
     
   <!-- About Section -->
