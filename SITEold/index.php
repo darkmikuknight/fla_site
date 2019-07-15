@@ -92,10 +92,17 @@ $vetorDj = array();
   border-color: #cdca27;     
 }
 
-
 .mozila_busca{
   position: relative !important;
   top: 25px !important;
+}
+
+#btn_menu:hover{
+  background-color: #82801b !important;
+}
+
+#btn_menu{
+  background-color: #82801b !important;
 }
 
 #parte_cima{
@@ -106,7 +113,6 @@ $vetorDj = array();
 </style>
 
 <script>
- 
 $(function(){ //referente ao dropmenu 
     
     $(".input-group-btn .dropdown-menu li a").click(function(){
@@ -151,7 +157,7 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">TOPDJ$APP</a>
-      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <button id="btn_menu" onmousedown="mDown(this)" onmouseup="mUp(this)" class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
       </button>
