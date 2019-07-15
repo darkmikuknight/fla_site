@@ -41,7 +41,7 @@ $vetorDj = array();
 
 #search_param:hover {
   color: #fff;
-  background-color: #051BF3 !important;
+  background-color: #82801b !important;
   border-color: #cdca27;
 }
 
@@ -58,7 +58,7 @@ $vetorDj = array();
 
 #butn:hover{
   color: #fff;
-  background-color: #051BF3 !important;
+  background-color: #82801b !important;
   border-color: #cdca27;
 }
 
@@ -93,6 +93,10 @@ $vetorDj = array();
 }
 
 
+.mozila_busca{
+  position: relative !important;
+  top: 25px !important;
+}
 
 #parte_cima{
   background-color: #cdca27  !important;
@@ -103,7 +107,7 @@ $vetorDj = array();
 
 <script>
  
-$(function(){
+$(function(){ //referente ao dropmenu 
     
     $(".input-group-btn .dropdown-menu li a").click(function(){
 
@@ -125,7 +129,7 @@ function mUp(obj) { //botao esquerdo do mouse solto
   //obj.innerHTML="Enviando...";
 }
 
-function remove_caractere() {
+function remove_caractere() { //outra funcao para remover o "%", mas nao foi usada (nao funciona antes do submit ser enviado)
  var nome = document.getElementById("search_key").value;
  var no2 = nome.replace(/%/g, "");
  //document.getElementById("tt").innerHTML = no2; 
@@ -186,7 +190,8 @@ function remove_caractere() {
 */ ?>
 
 <br />
-<form  method="get" action="?go=buscar#portfolio">
+<div id="form_busca">
+<form method="get" action="?go=buscar#portfolio">
 <div class="input-group">
     <div class="input-group-btn search-panel">
 		 <select name="search_param" id="search_param" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -204,6 +209,7 @@ function remove_caractere() {
 	</span>
 </div>
 </form>
+</div>
 
       <!-- Icon Divider -->
       <div class="divider-custom divider-light">
@@ -674,7 +680,7 @@ function remove_caractere() {
 
 
 <script>
-$("form").submit(function(event) {
+$("form").submit(function(event) { // retira o "%" caso o HTML5 (pattern) nao funciona (nao tem HTML5)
   
   var temp = $("#search_key").val();
   var temp2 = temp.replace(/%/g, "");
@@ -690,6 +696,40 @@ $("form").submit(function(event) {
   event.preventDefault();
   */
 });
+
+//---verificar qual browser e corrige o bug visual no mozila da barra de pesquisa---//
+var browsers = ["Firefox", "Chrome", "Safari", "Opera", "MSIE", "Trident", "Edge"];
+var userbrowser, useragent = navigator.userAgent;
+for (var i = 0; i < browsers.length; i++) {
+    if( useragent.indexOf(browsers[i]) > -1 ) {
+        userbrowser = browsers[i];
+        break;
+    }
+};
+ 
+switch(userbrowser) {
+    case 'MSIE':
+        userbrowser = 'Internet Explorer';
+        break;
+ 
+    case 'Trident':
+        userbrowser = 'Internet Explorer';
+        break;
+ 
+    case 'Edge':
+        userbrowser = 'Internet Explorer';
+        break;
+}
+ 
+//alert('You are using ' + userbrowser + ' browser');
+
+if(userbrowser.localeCompare("Firefox")==0){ // verifica se eh o firefox, se for, ele corrige o bug citado a cima
+    //str1.localeCompare(str2);
+  document.getElementById("form_busca").className = "mozila_busca"; 
+}
+/// ----  ///
+
+
 </script>
 
 </body>
