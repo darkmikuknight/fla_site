@@ -125,24 +125,17 @@ function mUp(obj) { //botao esquerdo do mouse solto
 }
 
 function remove_caractere() {
-  var str = document.getElementById("texto_busca").innerHTML; 
+ var nome = document.getElementById("search_key").value;
+ var no2 = nome.replace(/%/g, "");
+ //document.getElementById("tt").innerHTML = no2; 
+ //alert(no2);
+  //document.getElementById("demo").innerHTML = res;
   
-  var res = str.replace(/bo/g, "");
-  document.getElementById("texto_busca").innerHTML = res;
-
-  /* var str = document.getElementById("tt").value; 
-  var res = str.replace(/tes/g, "");
-  //res.innerHTML = res;
-  document.getElementById("tt").document.write(res)
-  //document.getElementById("tt") = res;
-  //document.getElementById("points").value= new Number(request.responseText);
-  */
-
-/*
-function setEmail(email) {
-   document.getElementById("email").setAttribute('value', email);
-}*/
-
+  // document.getElementById("tt").setAttribute("type", "button"); 
+   // document.getElementById("tt").setAttribute('value', no2);
+     document.getElementById("search_key").value =no2;
+  // return true;
+ 
   // https://www.w3schools.com/html/tryit.asp?filename=tryhtml_form_submit
 }
 
@@ -203,10 +196,10 @@ function setEmail(email) {
         </select>
   </div>
 
-	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Buscar..." id="search_key" value="">
+	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Buscar..." id="search_key" value="" pattern='[a-zA-Z0-9\s]+' title="Apenas números e letras!">
 	<span class="input-group-btn">
 
-			<button  id="butn" onclick="remove_caractere()" class="btn btn-info"  type="submit"> Buscar </button>
+			<button  id="butn"  class="btn btn-info"  type="submit"> Buscar </button> <!--- onclick="remove_caractere()" -->
 	</span>
 </div>
 </form>
