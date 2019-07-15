@@ -197,7 +197,7 @@ function remove_caractere() {
         </select>
   </div>
 
-	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Pesquisar..." id="search_key" value=""  title="Apenas números e letras!">
+	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Pesquisar..." id="search_key"  pattern='[a-zA-Z0-9\s]+' title="Apenas números e letras!">
 	<span class="input-group-btn">
 
 			<button  id="butn"  class="btn btn-search"  type="submit"> <i class="fa fa-search fa-fw"></i> Buscar </button> <!--- onclick="remove_caractere()" -->
@@ -680,6 +680,7 @@ $("form").submit(function(event) {
   var temp2 = temp.replace(/%/g, "");
   $("#search_key").val(temp2); // = temp2;
    
+  /* 
   if ($("#search_key").val()) {
     //if ($("#search_key:contains(bu)")) {
     //$("span").text("Validated...").show();
@@ -687,6 +688,7 @@ $("form").submit(function(event) {
   }
    //$("span").text("Not valid!").show().fadeOut( 1000 );
   event.preventDefault();
+  */
 });
 </script>
 
