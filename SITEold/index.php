@@ -102,7 +102,7 @@ $vetorDj = array();
 }
 
 #btn_menu{
-  background-color: #82801b !important;
+  background-color: #cdca27 !important;
 }
 
 #parte_cima{
