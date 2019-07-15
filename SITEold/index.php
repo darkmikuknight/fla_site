@@ -31,7 +31,7 @@ $vetorDj = array();
   <link href="css/freelancer.min.css" rel="stylesheet">
   <!-- tema https://startbootstrap.com/themes/freelancer/ -->
   
-
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
    
 </head>
 
@@ -63,6 +63,7 @@ $vetorDj = array();
 }
 
 #butn{
+  color: #fff;
   background-color: #2B343E;  
   padding: 7px;
   margin: 1px -1px;
@@ -133,7 +134,7 @@ function remove_caractere() {
   
   // document.getElementById("tt").setAttribute("type", "button"); 
    // document.getElementById("tt").setAttribute('value', no2);
-     document.getElementById("search_key").value =no2;
+     document.getElementById("search_key").value=no2;
   // return true;
  
   // https://www.w3schools.com/html/tryit.asp?filename=tryhtml_form_submit
@@ -196,10 +197,10 @@ function remove_caractere() {
         </select>
   </div>
 
-	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Buscar..." id="search_key" value="" pattern='[a-zA-Z0-9\s]+' title="Apenas números e letras!">
+	<input type="text" size="100" class="form-control" name="texto_busca" placeholder="Pesquisar..." id="search_key" value=""  title="Apenas números e letras!">
 	<span class="input-group-btn">
 
-			<button  id="butn"  class="btn btn-info"  type="submit"> Buscar </button> <!--- onclick="remove_caractere()" -->
+			<button  id="butn"  class="btn btn-search"  type="submit"> <i class="fa fa-search fa-fw"></i> Buscar </button> <!--- onclick="remove_caractere()" -->
 	</span>
 </div>
 </form>
@@ -671,6 +672,23 @@ function remove_caractere() {
   <!-- Custom scripts for this template -->
   <script src="js/freelancer.min.js"></script>
 
-</body>
 
+<script>
+$("form").submit(function(event) {
+  
+  var temp = $("#search_key").val();
+  var temp2 = temp.replace(/%/g, "");
+  $("#search_key").val(temp2); // = temp2;
+   
+  if ($("#search_key").val()) {
+    //if ($("#search_key:contains(bu)")) {
+    //$("span").text("Validated...").show();
+    return;
+  }
+   //$("span").text("Not valid!").show().fadeOut( 1000 );
+  event.preventDefault();
+});
+</script>
+
+</body>
 </html>
