@@ -172,13 +172,6 @@ echo  '<div class="element-input"><label class="title"></label><div class="item-
       {echo 'value="'.$estado.'" />';}
 echo '<span class="icon-place"></span></div></div>';
 
-echo  '<div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="medium" name="descricao" cols="20" rows="5"';
-  if ($descricao == null)
-      {echo 'placeholder="Descriçao (opcional)"/></textarea>';}
-  else
-      {echo '/>'.$descricao.'</textarea>';}
-echo '<span class="icon-place"></span></div></div>';
-
 echo '<div class="element-email"><label class="title"></label><div class="item-cont"><input class="large" type="email" name="email"';
     if($email == null)
         {echo 'placeholder="Email"/>';}
@@ -193,6 +186,12 @@ echo '<div class="element-url"><label class="title"></label><div class="item-con
         {echo 'value="'.$website.'" />';}
 echo '<span class="icon-place"></span></div></div>';
 
+echo  '<div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="medium" name="descricao" cols="20" rows="5"';
+  if ($descricao == null)
+      {echo 'placeholder="Descriçao (opcional)"/></textarea>';}
+  else
+      {echo '/>'.$descricao.'</textarea>';}
+echo '<span class="icon-place"></span></div></div>';
 
 echo '<input type="hidden" id="id" name="id" value='.$id.'>';
 

@@ -92,6 +92,18 @@ $vetorDj = array();
   border-color: #cdca27;     
 }
 
+#text_color:hover{
+    color: #cdca27 !important;
+}
+
+#text_color{
+    color: #2B343E !important;
+}
+
+#btn_close:hover{
+    color: #2B343E !important;
+}
+
 .mozila_busca{
   position: relative !important;
   top: 25px !important;
@@ -581,7 +593,7 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
     ?>
         <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button id="btn_close" type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">
                 <i class="fas fa-times"></i>
             </span>
@@ -622,7 +634,7 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
                     //echo '<a href="https://api.whatsapp.com/send?phone=5532988614906&amp;amp;text=FLAVINHO DJ JF" target="_blank"><img src="../img_djs/'.$nome_img2.'" alt=""></a>';
                             
                     echo '<br />';
-                    echo '<a href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text='.$nome_art2.'"><font size="5
+                    echo '<a id="text_color" href="https://api.whatsapp.com/send?phone=55'.$telefone_2.'&amp;amp;text='.$nome_art2.'"><font size="5
                         "> Clique aqui para conversar no Whatsapp </font></a>';
                     echo '<!-- Portfolio Modal - Text -->'; //'.$cont_port.'/'.$cont_dj.'/'.$nome_img2.' '.$telefone_2.'
                     echo '<p class="mb-4">
@@ -635,11 +647,11 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
                     }
                     
                     if(!empty($email2)){
-                        echo '<b>E-mail: </b><a href="mailto:'.$email2.'"> '.$email2.'</a>';
+                        echo '<b>E-mail: </b><a id="text_color" href="mailto:'.$email2.'"> '.$email2.'</a>';
                         echo ' &nbsp &nbsp';
                     }
                     if(!empty($website2)){
-                        echo '<b>Website: </b><a href="'.$website2.'"> '.$website2.'</a></p>';
+                        echo '<b>Website: </b><a id="text_color" href="'.$website2.'"> '.$website2.'</a></p>';
                         //echo '<br />';
                     }
                     
@@ -686,7 +698,7 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
 
 
 <script>
-$("form").submit(function(event) { // retira o "%" caso o HTML5 (pattern) nao funciona (nao tem HTML5)
+$("form").submit(function(event) { // retira o "%" caso o HTML5 (pattern) nao funcione (nao ter suporte ao HTML5)
   
   var temp = $("#search_key").val();
   var temp2 = temp.replace(/%/g, "");
