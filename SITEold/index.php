@@ -97,13 +97,22 @@ $vetorDj = array();
 
 #texto_fla_linha{
     color: #000000 !important;
-     background-color: #000000 !important;
+    background-color: #000000 !important;
 }
 
 #btnFecharJanela:hover{
-  color: #fff;
-  background-color: #2B343E !important;
+  color: #ffff00;
+  background-color: #000 !important;
   border-color: #ffff00;     
+}
+
+#btnFecharJanela{
+  color: #000;
+  border-color: #000;     
+}
+
+#btn_close:hover{
+    color: #000 !important;
 }
 
 #text_color:hover{
@@ -111,10 +120,6 @@ $vetorDj = array();
 }
 
 #text_color{
-    color: #2B343E !important;
-}
-
-#btn_close:hover{
     color: #2B343E !important;
 }
 
@@ -143,6 +148,17 @@ $vetorDj = array();
   background-color: #ffff00  !important; 
 }
 
+#topdjapp_link:hover{
+   color: #ffff00 !important;
+}
+
+#navbarResponsive{
+   background-color: #000000 !important;
+}
+
+#mainNav{
+   background-color: #000000 !important;
+}
    
 </style>
 <!-- #ffff00 -->
@@ -190,7 +206,7 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">TOPDJ$APP</a>
+      <a id="topdjapp_link" class="navbar-brand js-scroll-trigger" href="#page-top">TOPDJ$APP</a>
       <button id="btn_menu" onmousedown="mDown(this)" onmouseup="mUp(this)" class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -422,7 +438,7 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
         //echo '<h3>Estado: printou foi esse </h3>';        
         echo '<!-- Portfolio Item '.$cont_port.' -->';
         echo '<div   class="col-md-6 col-lg-4">';
-        echo '<div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
+        echo '<div id="portfolio_selecao" class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal'.$cont_port.'">'; 
             echo '<div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">';
             echo '<div class="portfolio-item-caption-content text-center text-white">';
             echo '<i class="fas fa-plus fa-3x"></i>';
@@ -498,7 +514,7 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
         </div>
         <div id="texto_fla_linha" class="divider-custom-line"></div>
       </div>
-
+       <h4 align="center" id="texto_fla">Quer divulgar seu trabalho? Entre em contato com a gente!</h4>
       <!-- Contact Section Form -->
       <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -625,14 +641,14 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
                 <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <!-- Portfolio Modal - Title -->
-                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"> <?php print_r ($vetorDj[$j][0]); ?> </h2>
+                    <h2 id="texto_fla" class="portfolio-modal-title text-secondary text-uppercase mb-0"> <?php print_r ($vetorDj[$j][0]); ?> </h2>
                     <!-- Icon Divider -->
-                    <div class="divider-custom">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon">
-                        <i class="fas fa-star"></i>
+                    <div id="texto_fla" class="divider-custom">
+                    <div id="texto_fla_linha" class="divider-custom-line"></div>
+                    <div id="texto_fla" class="divider-custom-icon">
+                        <i id="texto_fla" class="fas fa-star"></i>
                     </div>
-                    <div class="divider-custom-line"></div>
+                    <div id="texto_fla_linha" class="divider-custom-line"></div>
                     </div>
 
                     <!-- Portfolio Modal - Image -->
