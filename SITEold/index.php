@@ -42,11 +42,11 @@ $vetorDj = array();
 #search_param:hover {
   color: #fff;
   background-color: #82801b !important;
-  border-color: #cdca27;
+  border-color: #ffff00;
 }
 
 #search_param{
-  background-color: #2B343E  !important;
+  background-color: #000000  !important;
   font-size: 16px;
   padding: 9px;
   margin: 0px -2px; 
@@ -59,41 +59,55 @@ $vetorDj = array();
 #butn:hover{
   color: #fff;
   background-color: #82801b !important;
-  border-color: #cdca27;
+  border-color: #ffff00;
 }
 
 #butn{
   color: #fff;
-  background-color: #2B343E;  
+  background-color: #000000;  
   padding: 7px;
   margin: 1px -1px;
   border: none;
   border-radius: .3rem
 }
 
+#suporte:hover{
+  color: #ffff00  !important;
+  background-color: #000000 !important;
+}
+
 #suporte{
   color: #130cf3  !important;
+  border-color: #000000 !important;
 }
 
 #sendMessageButton:hover{
-
-  color: #fff;
-  background-color: #2B343E !important;
-  border-color: #cdca27;  
+  color: #ffff00  !important;
+  background-color: #000000 !important;
 }
 
 #sendMessageButton{
-  border: none !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+}
+
+#texto_fla{
+    color: #000000 !important;
+}
+
+#texto_fla_linha{
+    color: #000000 !important;
+     background-color: #000000 !important;
 }
 
 #btnFecharJanela:hover{
   color: #fff;
   background-color: #2B343E !important;
-  border-color: #cdca27;     
+  border-color: #ffff00;     
 }
 
 #text_color:hover{
-    color: #cdca27 !important;
+    color: #ffff00 !important;
 }
 
 #text_color{
@@ -114,16 +128,24 @@ $vetorDj = array();
 }
 
 #btn_menu{
-  background-color: #cdca27 !important;
+  background-color: #ffff00 !important;
 }
 
+#image_logo{
+    position: relative !important;
+    border-radius: 30px;
+    padding: -10px 0px !important;
+    top: -45px;
+}
+
+
 #parte_cima{
-  background-color: #cdca27  !important;
+  background-color: #ffff00  !important; 
 }
 
    
 </style>
-
+<!-- #ffff00 -->
 <script>
 $(function(){ //referente ao dropmenu 
     
@@ -143,7 +165,7 @@ function mDown(obj) { //botao esquerdo do mouse pressionado
 }
 
 function mUp(obj) { //botao esquerdo do mouse solto
-  obj.style.backgroundColor="#cdca27";
+  obj.style.backgroundColor="#ffff00";
   //obj.innerHTML="Enviando...";
 }
 
@@ -191,13 +213,13 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
 
   <!-- Masthead -->
   <header id="parte_cima" class="masthead bg-primary text-white text-center">
-    <div class="container d-flex align-items-center flex-column">
-
-      <!-- Masthead Avatar Image -->
-      <img class="masthead-avatar mb-5" src="img/avataaars.svg" alt="">
-
+    <div id="ajuste_img" class="container d-flex align-items-center flex-column">
+     
+        <!-- Masthead Avatar Image -->
+        <img id="image_logo"  src="img/logotopdjapp.jpg" alt="" width="1200" height="300">
+   
       <!-- Masthead Heading -->
-      <h1 class="masthead-heading text-uppercase mb-0">Busque por um DJ</h1>
+      <h1 id="texto_fla" class="masthead-heading text-uppercase mb-0">Busque por um DJ</h1>
       <br />
 
       
@@ -230,16 +252,16 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
 </div>
 
       <!-- Icon Divider -->
-      <div class="divider-custom divider-light">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i class="fas fa-star"></i>
+      <div id="texto_fla" class="divider-custom divider-light">
+        <div id="texto_fla_linha" class="divider-custom-line"></div>
+        <div id="texto_fla" class="divider-custom-icon">
+          <i id="texto_fla" class="fas fa-star"></i>
         </div>
-        <div class="divider-custom-line"></div>
+        <div id="texto_fla_linha" class="divider-custom-line"></div>
       </div>
 
       <!-- Masthead Subheading -->
-      <p class="masthead-subheading font-weight-light mb-0">Você pode buscar por cidade, estado.</p>
+      <p id="texto_fla" class="masthead-subheading font-weight-light mb-0">Você pode buscar por cidade, estado.</p>
 
     </div>
   </header>
@@ -249,15 +271,15 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
     <div class="container">
 
       <!-- Portfolio Section Heading -->
-      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
+      <h2 id="texto_fla" class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
 
             <!-- Icon Divider -->
-      <div class="divider-custom">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i class="fas fa-star"></i>
+      <div id="texto_fla" class="divider-custom">
+        <div id="texto_fla_linha" class="divider-custom-line"></div>
+        <div id="texto_fla" class="divider-custom-icon">
+          <i id="texto_fla" class="fas fa-star"></i>
         </div>
-        <div class="divider-custom-line"></div>
+        <div id="texto_fla_linha" class="divider-custom-line"></div>
       </div>
     
 
@@ -429,24 +451,24 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
     <div class="container">
 
       <!-- About Section Heading -->
-      <h2 class="page-section-heading text-center text-uppercase text-white">Sobre</h2>
+      <h2 id="texto_fla" class="page-section-heading text-center text-uppercase text-white">Sobre</h2>
 
       <!-- Icon Divider -->
-      <div class="divider-custom divider-light">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i class="fas fa-star"></i>
+      <div id="texto_fla"  class="divider-custom divider-light">
+        <div id="texto_fla_linha" class="divider-custom-line"></div>
+        <div id="texto_fla" class="divider-custom-icon">
+          <i id="texto_fla" class="fas fa-star"></i>
         </div>
-        <div class="divider-custom-line"></div>
+        <div id="texto_fla_linha" class="divider-custom-line"></div>
       </div>
 
       <!-- About Section Content -->
       <div class="row">
         <div class="col-lg-4 ml-auto">
-          <p class="lead">Somos uma plataforma que se propõem a juntar Djs e clientes para negociar livremente. E não nos responsabilizamos pelo serviço prestado pelos mesmos. Apenas facilitamos o encontro dos mesmos.</p>
+          <p id="texto_fla" class="lead">Somos uma plataforma que se propõem a juntar Djs e clientes para negociar livremente. E não nos responsabilizamos pelo serviço prestado pelos mesmos. Apenas facilitamos o encontro dos mesmos.</p>
         </div>
         <div class="col-lg-4 mr-auto">
-          <p class="lead">Esse aplicativo foi criado por Flávio Romano dos Santos (Flavinho DJ JF) com o intuíto de facilitar negócios. Para maiores dúvidas temos nosso suporte técnico. </p> <!--<a id="suporte" href="https://chat.whatsapp.com/KwrG06SudzfFprIB21p0hl">Acessar Suporte</a></p> -->
+          <p id="texto_fla" class="lead">Esse aplicativo foi criado por Flávio Romano dos Santos (Flavinho DJ JF) com o intuíto de facilitar negócios. Para maiores dúvidas temos nosso suporte técnico. </p> <!--<a id="suporte" href="https://chat.whatsapp.com/KwrG06SudzfFprIB21p0hl">Acessar Suporte</a></p> -->
         </div>
       </div>
 
@@ -466,15 +488,15 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
     <div class="container">
 
       <!-- Contact Section Heading -->
-      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contato</h2>
+      <h2 id="texto_fla" class="page-section-heading text-center text-uppercase text-secondary mb-0">Contato</h2>
 
       <!-- Icon Divider -->
       <div class="divider-custom">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i class="fas fa-star"></i>
+        <div id="texto_fla_linha" class="divider-custom-line"></div>
+        <div id="texto_fla" class="divider-custom-icon">
+          <i id="texto_fla" class="fas fa-star"></i>
         </div>
-        <div class="divider-custom-line"></div>
+        <div id="texto_fla_linha" class="divider-custom-line"></div>
       </div>
 
       <!-- Contact Section Form -->
