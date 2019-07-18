@@ -75,12 +75,12 @@ li a:hover:not(.active) {
 
 #customers td, #customers th {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 3px;
 }
 
 #customers tr:nth-child(even){background-color: #f2f2f2;}
 
-#customers tr:hover {background-color: #ddd;}
+#customers tr:hover {background-color: #cccdfc;}
 
 #customers th {
   padding-top: 12px;
@@ -89,6 +89,11 @@ li a:hover:not(.active) {
   background-color: #4CAF50;
   color: white;
 }
+
+#desc{
+    width: 100%;
+}
+
 </style>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -105,20 +110,20 @@ li a:hover:not(.active) {
 <script language = "JavaScript" >
     function deleteUser(id, nome) {
 
-        alertify.confirm("Deseja exluir o "+nome+"?",
+        alertify.confirm("Deseja excluir o "+nome+"?",
         function(){
-            alertify.success('Ok');
+            alertify.success('Excluído com sucesso!');
             window.location.href= 'excluir.php?id='+id; 
             header("Refresh:2");
         },
         function(){
-            alertify.error('Cancel');
+            alertify.error('Cancelado!');
         });
 
     }
 
 function checkDelete(){
-    return confirm('Are you sure?');
+    return confirm('Tem certeza?');
 }
 </script>
 
@@ -126,7 +131,7 @@ function checkDelete(){
 
 <?php
 
-  $query = 'SELECT * from djs';
+  $query = 'SELECT * from djs ORDER BY id_dj';
 
   $result = pg_query($query);
  
@@ -139,34 +144,34 @@ function checkDelete(){
       $fieldName = pg_field_name($result, $i);
       
       if($fieldName == "nome_real" && $i == 1)
-        echo '<td>Nome real</td>';
+        echo '<td><b>Nome real</b></td>';
 
       if($fieldName == "nome_art" && $i == 2)
-        echo '<td>Nome Artístico</td>';
+        echo '<td><b>Nome Artístico</b></td>';
 
       if($fieldName == "telefone" && $i == 3)
-        echo '<td>Cel/Whatsapp</td>';
+        echo '<td><b>Cel/Whatsapp</b></td>';
 
       if($fieldName == "telefone2" && $i == 4)
-        echo '<td>Telefone 2</td>';
+        echo '<td><b>Telefone2</b></td>';
 
       if($fieldName == "cidade" && $i == 5)
-        echo '<td>Cidade</td>';
+        echo '<td><b>Cidade</b></td>';
 
       if($fieldName == "estado" && $i == 6)
-        echo '<td>Estado</td>';
+        echo '<td><b>Estado</b></td>';
 
       if($fieldName == "descricao" && $i == 7)
-        echo '<td>Descrição</td>';
+        echo '<td id="desc"><b>Descrição</b></td>';
 
       if($fieldName == "img_nome" && $i == 8)
-        echo '<td>Nome da Imagem</td>';
+        echo '<td><b>Nome da Imagem</b></td>';
         
       if($fieldName == "email" && $i == 9)
-        echo '<td>E-mail</td>';
+        echo '<td><b>E-mail</b></td>';
      
       if($fieldName == "website" && $i == 10)
-        echo '<td>Website</td>';
+        echo '<td><b>Website</b></td>';
 
       elseif($i==0){
         echo '<td>' .$fieldName. '</td>';

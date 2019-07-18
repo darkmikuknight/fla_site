@@ -133,14 +133,21 @@ $vetorDj = array();
 }
 
 #btn_menu{
+  color: #000 !important;
   background-color: #ffff00 !important;
 }
 
 #image_logo{
     position: relative !important;
     border-radius: 30px;
-    padding: -10px 0px !important;
     top: -45px;
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#nome_g{
+    margin-top: 55 !important;
 }
 
 
@@ -176,7 +183,7 @@ $(function(){ //referente ao dropmenu
 });
 
 function mDown(obj) { //botao esquerdo do mouse pressionado
-  obj.style.backgroundColor = "#706f12";
+  obj.style.backgroundColor = "#e3e309";
   //obj.innerHTML = "Release Me";
 }
 
@@ -214,7 +221,7 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Portfolio</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">DJs Disponíveis</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Sobre</a>
@@ -287,7 +294,7 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
     <div class="container">
 
       <!-- Portfolio Section Heading -->
-      <h2 id="texto_fla" class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
+      <h2 id="texto_fla" class="page-section-heading text-center text-uppercase text-secondary mb-0">DJs Disponíveis</h2>
 
             <!-- Icon Divider -->
       <div id="texto_fla" class="divider-custom">
@@ -522,28 +529,28 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
           <form name="sentMessage" id="contactForm" novalidate="novalidate">
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Nome</label>
+                <label id="texto_fla">Nome</label>
                 <input class="form-control" id="name" type="text" placeholder="Nome" required="required" data-validation-required-message="Digite o seu nome.">
                 <p class="help-block text-danger"></p>
               </div>
             </div>
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Endereço de e-mail</label>
+                <label id="texto_fla">Endereço de e-mail</label>
                 <input class="form-control" id="email" type="email" placeholder="Endereço de e-mail" required="required" data-validation-required-message="Digite seu e-mail." >
                 <p class="help-block text-danger"></p>
               </div>
             </div>
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Número de telefone (whatsapp)</label>
+                <label id="texto_fla">Número de telefone (whatsapp)</label>
                 <input class="form-control" id="phone" type="tel" placeholder="Número de telefone (whatsapp)" required="required" data-validation-required-message="Por favor digite seu telefone (whatsapp).">
                 <p class="help-block text-danger"></p>
               </div>
             </div>
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Mensagem</label>
+                <label id="texto_fla">Mensagem</label>
                 <textarea class="form-control" id="message" rows="3" placeholder="Mensagem" required="required" data-validation-required-message="Digite uma mensagem."></textarea>
                 <p class="help-block text-danger"></p>
               </div>
@@ -594,9 +601,9 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
 
         <!-- Footer About Text -->
         <div class="col-lg-4">
-          <h4 class="text-uppercase mb-4">Ignorar</h4>
-          <p class="lead mb-0">Freelance is a free to use, MIT licensed Bootstrap theme created by
-            <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+         <!-- <h4 class="text-uppercase mb-4">Ignorar</h4> -->
+          <p id="nome_g" class="lead mb-0">Desenvolvido e adaptado por Guilherme RP<p>
+           <!-- <a href="http://startbootstrap.com">Start Bootstrap</a>.</p> -->
         </div>
 
       </div>

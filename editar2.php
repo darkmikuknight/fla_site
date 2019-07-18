@@ -18,6 +18,8 @@ if($_SESSION["loggedIn"] != true) {
 
  global $id;
  $id = intval($_GET['id']);
+ global $exibe_texto;
+ $exibe_texto = true;
 
 
 if(isset($_GET['go'])==false){
@@ -139,6 +141,8 @@ while ($row = pg_fetch_row($result))
    
 ?>
 
+<script type="text/javascript" src="../alertifyjs/alertify.js"></script>
+<link rel="stylesheet" type="text/css" href="../alertifyjs/css/alertify.css">
 <!-- Start Formoid form-->
 <link rel="stylesheet" href="formoid2_files/formoid1/formoid-solid-blue.css" type="text/css" />
 <script type="text/javascript" src="formoid2_files/formoid1/jquery.min.js"></script>
@@ -158,14 +162,14 @@ echo  '<div class="element-phone"><label class="title"></label><div class="item-
     {echo 'value="'.$telefone2.'" />';}
 echo '<span class="icon-place"></span></div></div>';
 
-echo  '<div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="cidade"'; 
+echo  '<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="cidade" required="required"'; 
   if ($cidade == null)
       {echo 'placeholder="Cidade" />';}
   else
       {echo 'value="'.$cidade.'" />';}
 echo '<span class="icon-place"></span></div></div>';
 
-echo  '<div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="estado"';
+echo  '<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="estado" required="required"';
   if ($estado == null)
       {echo 'placeholder="Estado" />';}
   else
@@ -209,10 +213,11 @@ echo '<!-- Stop Formoid form-->';
 
 }
 
-
-echo '<p>&nbsp;</p>';
-echo '<h2 align="center">Imagem do DJ</h2>';
-echo '<div id="img" align="center"><img id="img" src="img_djs/'.$img_nome.'"></div>';
+if($exibe_texto){
+    echo '<p>&nbsp;</p>';
+    echo '<h2 align="center">Imagem do DJ</h2>';
+    echo '<div id="img" align="center"><img id="img" src="img_djs/'.$img_nome.'"></div>';
+}
 
 ?>
 
@@ -291,7 +296,7 @@ if(@$_GET['go'] == 'salvar') // && @$_GET['upload'] == 'enviar')
     // if everything is ok, try to upload file
     }
 	
-	echo '<td>' .$nome_completo. '</td>';
+	//echo '<td>' .$nome_completo. '</td>'; // nome da imagem, APENAS para testes
 		
 	 // verificando se algum campo está em branco
 		
@@ -311,12 +316,17 @@ if(@$_GET['go'] == 'salvar') // && @$_GET['upload'] == 'enviar')
       if ($uploadOk == 1){ 
 
         if (move_uploaded_file($_FILES["myfile"]["tmp_name"], $target_file)) {
-
-          echo " The file ". basename( $_FILES["myfile"]["name"]). " has been uploaded.";
+            
+            $exibe_texto=false;
+          //echo " The file ". basename( $_FILES["myfile"]["name"]). " has been uploaded."; //exibe o nome do da imagem caso o upload ocorreu com sucesso.
+          echo '<div id="img" align="center"><p><h2>Aguarde, você será redirecionado...<h2><p></div>';
           $result = pg_query("UPDATE djs SET  (nome_real, nome_art, telefone, telefone2, cidade, estado, descricao, img_nome, email, website) = ('$nome_real_2', '$nome_art_2', '$telefone_2', '$telefone2_2', '$cidade_2', '$estado_2', '$descricao_2', '$nome_completo', '$email_2', '$website_2') WHERE id_dj ='$id_2' "); 
           echo "<script>alert('Usuario atualizado com sucesso!');</script>";
-          echo '<meta HTTP-EQUIV="Refresh" CONTENT="0; URL=login/ola.php">';
-
+          echo '<script language = "JavaScript" >
+                    alertify.success("Usuario cadastrado com sucesso!");
+                </script>';
+                
+         echo '<meta HTTP-EQUIV="Refresh" CONTENT="0; URL=login/gerenciador.php">';
           //$result2 = pg_query("UPDATE djs SET img_nome = '$nome_completo '  WHERE id_dj ='20'"); 
         }
         else {
