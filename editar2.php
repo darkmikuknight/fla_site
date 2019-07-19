@@ -81,15 +81,26 @@ li a:hover:not(.active) {
   font-size: 15px;
 }
 
-#img{
+#text_img{
+  position: relative;
+  top: -1000px !important;
+  left: 130px !important;
+}
+
+#img_pequena{
+  position: relative;
+  max-width: 430px;
+  height: auto;
+  top: -500px;
+}
+
+#img2{
   float: center;
   max-width: 100%;
   height: auto;
 }
 
 #formE{
-
- 
   
 }
 
@@ -214,9 +225,13 @@ echo '<!-- Stop Formoid form-->';
 }
 
 if($exibe_texto){
-    echo '<p>&nbsp;</p>';
+    //echo '<p>&nbsp;</p>';
     echo '<h2 align="center">Imagem do DJ</h2>';
-    echo '<div id="img" align="center"><img id="img" src="img_djs/'.$img_nome.'"></div>';
+    echo '<div id="img2" align="center"><img  id="img2" src="img_djs/'.$img_nome.'"></div>';
+  
+    echo '<h2 id="text_img">Imagem do DJ</h2>';
+    echo '<div id="img_pequena"><img id="img_pequena" src="img_djs/'.$img_nome.'"></div>';
+   
 }
 
 ?>
