@@ -111,6 +111,49 @@ li a:hover:not(.active) {
 </head>
 <body class="blurBg-false" style="background-color:#EBEBEB">
 
+<script> //usado para a barra de progresso//
+function _(el) {
+  return document.getElementById(el);
+}
+
+function uploadFile() {
+  var file = _("myfile").files[0];
+  // alert(file.name+" | "+file.size+" | "+file.type);
+  var formdata = new FormData();
+  formdata.append("myfile", file);
+  var ajax = new XMLHttpRequest();
+  ajax.upload.addEventListener("progress", progressHandler, false);
+  ajax.addEventListener("load", completeHandler, false);
+  ajax.addEventListener("error", errorHandler, false);
+  ajax.addEventListener("abort", abortHandler, false);
+  ajax.open("POST", "upload2.php"); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
+  //use file_upload_parser.php from above url
+  ajax.send(formdata);
+}
+
+function progressHandler(event) {
+  _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+  var percent = (event.loaded / event.total) * 100;
+  _("progressBar").value = Math.round(percent);
+  _("status").innerHTML = Math.round(percent) + "% enviado...";
+}
+
+function completeHandler(event) {
+  _("status").innerHTML = event.target.responseText;
+  _("progressBar").value = 0; //wil clear progress bar after successful upload
+}
+
+function errorHandler(event) {
+  _("status").innerHTML = "Upload Failed";
+}
+
+function abortHandler(event) {
+  _("status").innerHTML = "Upload Aborted";
+}
+</script>
+
+
+
 <ul>
   <li><a class="active" href="#">Editor de DJ</a></li>
   <li><a  href="login/gerenciador.php">Voltar</a></li>
@@ -212,7 +255,10 @@ echo '<input type="hidden" id="id" name="id" value='.$id.'>';
 
 echo '<div id="up">
         Upload a File:
-        <input type="file" name="myfile" id="fileToUpload">
+        <input type="file" name="myfile" id="myfile" onchange="uploadFile()">
+        <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+        <h3 id="status"></h3>
+        <p id="loaded_n_total"></p>
         <!--<input id="upBtn" type="submit" name="submit" value="Upload File Now" >
         --> </div>';
 
@@ -230,8 +276,7 @@ if($exibe_texto){
     echo '<div id="img2" align="center"><img  id="img2" src="img_djs/'.$img_nome.'"></div>';
   
     echo '<h2 id="text_img">Imagem do DJ</h2>';
-    echo '<div id="img_pequena"><img id="img_pequena" src="img_djs/'.$img_nome.'"></div>';
-   
+    echo '<div id="img_pequena"><img id="img_pequena" src="img_djs/'.$img_nome.'"></div>';  
 }
 
 ?>
@@ -251,9 +296,9 @@ if(@$_GET['go'] == 'salvar') // && @$_GET['upload'] == 'enviar')
 	$cidade_2 = $_POST['cidade'];
 	$estado_2 = $_POST['estado'];
 	$descricao_2 = $_POST['descricao'];
-    $id_2 = $_POST['id'];
-    $email_2 = $_POST['email'];
-    $website_2 = $_POST['website'];
+  $id_2 = $_POST['id'];
+  $email_2 = $_POST['email'];
+  $website_2 = $_POST['website'];
 	
 	
 	$data = date('Y-m-d');
@@ -261,8 +306,8 @@ if(@$_GET['go'] == 'salvar') // && @$_GET['upload'] == 'enviar')
 	
 	date_default_timezone_set('America/Sao_Paulo'); 
 
-    //ALTER TABLE djs ADD COLUMN img_nome varchar(80);
-
+    
+    // pegando os dados da imagem para verificacoes //
     $target_dir = "img_djs/";
     $target_file = $target_dir . basename($_FILES["myfile"]["name"]);
     $filename = pathinfo($_FILES['myfile']['name'], PATHINFO_FILENAME);
@@ -277,7 +322,7 @@ if(@$_GET['go'] == 'salvar') // && @$_GET['upload'] == 'enviar')
             //echo "File is an image - " . $check["mime"] . ".";
             $uploadOk = 1;
         } else {
-            echo "File is not an image.";
+            echo "O arquivo não é uma imagem. ";
             $uploadOk = 0;
         }
    // }
@@ -291,7 +336,7 @@ if(@$_GET['go'] == 'salvar') // && @$_GET['upload'] == 'enviar')
     if ($_FILES["myfile"]["size"] > 500000) {
 
         echo "<script>alert('Tamanho da imagem muito grande!'); history.back();</script>";
-        echo "Sorry, your file is too large.";
+        echo "Desculpe, o arquivo é muito grande. ";
         $uploadOk = 0;
         //echo '<meta HTTP-EQUIV="Refresh" CONTENT="0; URL=Formoid22.php">';
     }
@@ -299,13 +344,13 @@ if(@$_GET['go'] == 'salvar') // && @$_GET['upload'] == 'enviar')
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
 
         echo "<script>alert('Apenas JPG, JPEG, PNG são permitidos!'); history.back();</script>";
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        echo "Desculpe, apenas JPG, JPEG, PNG & GIF são permitidos. ";
         $uploadOk = 0;
         //echo '<meta HTTP-EQUIV="Refresh" CONTENT="0; URL=Formoid22.php">';
     }
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
+        echo "Desculpe, seu arquivo não foi enviado. ";
         echo "<script>alert('Imagen não foi enviada!'); history.back();</script>";
         echo '<meta HTTP-EQUIV="Refresh" CONTENT="0; URL=editar2.php?id='.$id_2.'">';
     // if everything is ok, try to upload file

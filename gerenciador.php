@@ -190,7 +190,13 @@ function checkDelete(){
       while ($y < $count)
       {
         $c_row = current($row);
-        echo '<td>' . $c_row . '</td>';
+        
+        $img_nome= pg_fetch_result($result, $i, "img_nome");
+        if($c_row == $img_nome)
+            echo '<td><img id="img" src="../img_djs/'.$img_nome.'" style="width:200px;height:60px;"></td>';
+        
+        else
+            echo '<td>' . $c_row . '</td>';
               
         next($row);
         $y = $y + 1;
@@ -198,6 +204,9 @@ function checkDelete(){
      
      $id= pg_fetch_result($result, $i, "id_dj"); // result eh a query toda, $i eh a linha atual e o "id_dj" eh a coluna que eu quero pegar
      $nome_real= pg_fetch_result($result, $i, "nome_real");
+     $img_nome= pg_fetch_result($result, $i, "img_nome");
+     
+      echo '<td><img id="img" src="../img_djs/'.$img_nome.'" style="width:100px;height:30px;"></td>';
      
       //echo '<td> "ID="'.$id.'</td>';
       //echo '<td> "ID="'.$nome_real.'</td>';

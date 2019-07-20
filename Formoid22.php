@@ -3,7 +3,7 @@
 include "db_postConfig.php";
  //require_once "config.php";
 
-
+//comunica@verointernet.com.br
 
 
 //https://www.youtube.com/watch?v=rHPWkoXFIKM
@@ -73,6 +73,50 @@ li a:hover:not(.active) {
 </head>
 <body class="blurBg-false" style="background-color:#EBEBEB">
 
+<script> //usado para a barra de progresso//
+function _(el) {
+  return document.getElementById(el);
+}
+
+function uploadFile() {
+  var file = _("myfile").files[0];
+  // alert(file.name+" | "+file.size+" | "+file.type);
+  var formdata = new FormData();
+  formdata.append("myfile", file);
+  var ajax = new XMLHttpRequest();
+  ajax.upload.addEventListener("progress", progressHandler, false);
+  ajax.addEventListener("load", completeHandler, false);
+  ajax.addEventListener("error", errorHandler, false);
+  ajax.addEventListener("abort", abortHandler, false);
+  ajax.open("POST", "upload2.php"); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
+  //use file_upload_parser.php from above url
+  ajax.send(formdata);
+}
+
+function progressHandler(event) {
+  _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+  var percent = (event.loaded / event.total) * 100;
+  _("progressBar").value = Math.round(percent);
+  _("status").innerHTML = Math.round(percent) + "% enviado...";
+}
+
+function completeHandler(event) {
+  _("status").innerHTML = event.target.responseText;
+  _("progressBar").value = 0; //wil clear progress bar after successful upload
+}
+
+function errorHandler(event) {
+  _("status").innerHTML = "Upload Failed";
+}
+
+function abortHandler(event) {
+  _("status").innerHTML = "Upload Aborted";
+}
+</script>
+
+
+
+
 <ul>
   <li><a href="login/ola.php">Home</a></li>
   <li><a class="active" href="Formoid22.php#">Cadastro de DJs</a></li>
@@ -87,7 +131,7 @@ li a:hover:not(.active) {
 <!-- Start Formoid form-->
 <link rel="stylesheet" href="formoid2_files/formoid1/formoid-solid-blue.css" type="text/css" />
 <script type="text/javascript" src="formoid2_files/formoid1/jquery.min.js"></script>
-<form class="formoid-solid-blue" style="background-color:#FFFFFF;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:480px;min-width:150px" method="post"  action="?go=cadastrar"  enctype="multipart/form-data" ><div class="title"><h2>Cadastro de DJs</h2></div>
+<form id="form_texto" class="formoid-solid-blue" style="background-color:#FFFFFF;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:480px;min-width:150px" method="post"  action="?go=cadastrar" enctype="multipart/form-data" ><div class="title"><h2>Cadastro de DJs</h2></div>
 	<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="nome_real" required="required" placeholder="Nome real"/><span class="icon-place"></span></div></div>
 	<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="nome_art" required="required" placeholder="Nome artistico"/><span class="icon-place"></span></div></div>
 	<div class="element-phone"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="tel" pattern="[+]?[\.\s\-\(\)\*\#0-9]{3,}" maxlength="24" name="telefone" required="required" placeholder="Telefone/Whatsapp" value=""/><span class="icon-place"></span></div></div>
@@ -98,14 +142,18 @@ li a:hover:not(.active) {
 	<div class="element-url"><label class="title"></label><div class="item-cont"><input class="large" type="url" name="website"  placeholder="Website"/><span class="icon-place"></span></div></div>	
 	<div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="medium" name="descricao" cols="20" rows="5" placeholder="Descriçao (opcional)"></textarea><span class="icon-place"></span></div></div>
 	<div id="up">
-        Upload a File:
-        <input type="file" name="myfile" id="fileToUpload">
+        Fazer upload:
+        <input type="file" name="myfile" id="myfile" onchange="uploadFile()">
+        <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+        <h3 id="status"></h3>
+        <p id="loaded_n_total"></p>
         <!--<input id="upBtn" type="submit" name="submit" value="Upload File Now" >
         --> </div>
    
+
     
 
-    <div class="submit"><input type="submit" name="submit" value="Cadastrar"/></form>
+    <div class="submit"><input type="submit" name="submit" value="Cadastrar"  /></form>
     <p class="frmd"><a href="http://formoid.com/v29.php">javascript form validation</a> Formoid.com 2.9</p><script type="text/javascript" src="formoid2_files/formoid1/formoid-solid-blue.js"></script>
     <!-- Stop Formoid form-->
 
@@ -121,6 +169,7 @@ li a:hover:not(.active) {
 <?php
 if(@$_GET['go'] == 'cadastrar') // && @$_GET['upload'] == 'enviar')
 {
+
 	$nome_real = $_POST['nome_real'];
 	$nome_art = $_POST['nome_art'];
 	$telefone = $_POST['telefone'];
@@ -139,10 +188,21 @@ if(@$_GET['go'] == 'cadastrar') // && @$_GET['upload'] == 'enviar')
 
     //ALTER TABLE djs ADD COLUMN img_nome varchar(80);
 
+
     $target_dir = "img_djs/";
+    $filename = $_FILES["myfile"]["name"]; // The file name
+    $target_file = $target_dir . $_FILES["myfile"]["name"];
+    $type = $_FILES["myfile"]["type"];
+
+    /*$target_dir = "img_djs/";
     $target_file = $target_dir . basename($_FILES["myfile"]["name"]);
     $filename = pathinfo($_FILES['myfile']['name'], PATHINFO_FILENAME);
     //$type = exif_imagetype($_FILES['myfile']['tmp_name']);
+    */
+
+    //echo '<script type="text/javascript">uploadFile()</script>';
+    
+    
     $nome_completo = basename( $_FILES["myfile"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -153,7 +213,7 @@ if(@$_GET['go'] == 'cadastrar') // && @$_GET['upload'] == 'enviar')
             //echo "File is an image - " . $check["mime"] . ".";
             $uploadOk = 1;
         } else {
-            echo "File is not an image.";
+            echo " O arquivo não é uma imagem.";
             $uploadOk = 0;
         }
    // }
@@ -167,7 +227,7 @@ if(@$_GET['go'] == 'cadastrar') // && @$_GET['upload'] == 'enviar')
     if ($_FILES["myfile"]["size"] > 500000) {
 
         echo "<script>alert('Tamanho da imagem muito grande!'); history.back();</script>";
-        echo "Sorry, your file is too large.";
+        echo " Desculpe, o arquivo é muito grande.";
         $uploadOk = 0;
         //echo '<meta HTTP-EQUIV="Refresh" CONTENT="0; URL=Formoid22.php">';
     }
@@ -175,13 +235,13 @@ if(@$_GET['go'] == 'cadastrar') // && @$_GET['upload'] == 'enviar')
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
 
         echo "<script>alert('Apenas JPG, JPEG, PNG são permitidos!'); history.back();</script>";
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        echo "Desculpe, apenas JPG, JPEG, PNG & GIF são permitidos.";
         $uploadOk = 0;
         //echo '<meta HTTP-EQUIV="Refresh" CONTENT="0; URL=Formoid22.php">';
     }
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
+        echo " Desculpe, seu arquivo não foi enviado.";
         echo '<script language = "JavaScript" >
                 alertify.error("Imagen não foi enviada!");
                 </script>';

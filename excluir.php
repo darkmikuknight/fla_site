@@ -17,9 +17,18 @@ if($_SESSION["loggedIn"] != true) {
 }
 
 
+// excluindo a imagem do servidor //
+$query  = "SELECT img_nome From djs WHERE id_dj ='{$_GET['id']}'";
+$result1 = pg_query($query);
+$file_name = pg_fetch_result($result1, 0, "img_nome"); 
+unlink("../img_djs/" . $file_name);  
 
+
+// excluindo do banco de dados //
 $del = "DELETE FROM djs WHERE id_dj ='{$_GET['id']}'";
 $querydel = pg_query($del);
+
+
 
 if($querydel)
 {
