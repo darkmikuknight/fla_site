@@ -6,13 +6,21 @@ include "db_postConfig.php";
 //comunica@verointernet.com.br
 
 
-//https://www.youtube.com/watch?v=rHPWkoXFIKM
 
 if($_SESSION["loggedIn"] != true) {
     echo("Access denied!");
     exit();
+//https://www.youtube.com/watch?v=rHPWkoXFIKM
 }
 //echo("Enter my lord!");
+
+
+
+global $enviou;
+ $enviou = false;
+
+
+
 ?>
 
 
@@ -78,6 +86,9 @@ function _(el) {
   return document.getElementById(el);
 }
 
+
+var enviada = true;
+
 function uploadFile() {
   var file = _("myfile").files[0];
   // alert(file.name+" | "+file.size+" | "+file.type);
@@ -97,7 +108,7 @@ function progressHandler(event) {
   _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
   var percent = (event.loaded / event.total) * 100;
   _("progressBar").value = Math.round(percent);
-  _("status").innerHTML = Math.round(percent) + "% enviado...";
+  _("status").innerHTML = Math.round(percent) + "% enviado... aguarde";
 }
 
 function completeHandler(event) {
@@ -105,14 +116,57 @@ function completeHandler(event) {
   _("progressBar").value = 0; //wil clear progress bar after successful upload
 }
 
+
 function errorHandler(event) {
   _("status").innerHTML = "Upload Failed";
+    <?php
+    $enviou = false;
+    ?>
+    enviada = false;
 }
 
 function abortHandler(event) {
   _("status").innerHTML = "Upload Aborted";
+  <?php
+    $enviou = false;
+    ?>
+    
+    enviada = false;
 }
+
+function checaEnvio(){
+    return enviada;
+}
+
+
+// mascaras ER //
+function mascara(o,f){
+    v_obj=o
+    v_fun=f
+    setTimeout("execmascara()",1)
+}
+function execmascara(){
+    v_obj.value=v_fun(v_obj.value)
+}
+function mtel(v){
+    v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
+    v=v.replace(/^(\d{2})(\d)/g,"($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+    v=v.replace(/(\d)(\d{4})$/,"$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
+    return v;
+}
+function id( el ){
+	return document.getElementById( el );
+}
+window.onload = function(){
+	id('telefone').onkeyup = function(){
+		mascara( this, mtel );
+	}
+}
+
+
+
 </script>
+
 
 
 
@@ -134,7 +188,7 @@ function abortHandler(event) {
 <form id="form_texto" class="formoid-solid-blue" style="background-color:#FFFFFF;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:480px;min-width:150px" method="post"  action="?go=cadastrar" enctype="multipart/form-data" ><div class="title"><h2>Cadastro de DJs</h2></div>
 	<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="nome_real" required="required" placeholder="Nome real"/><span class="icon-place"></span></div></div>
 	<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="nome_art" required="required" placeholder="Nome artistico"/><span class="icon-place"></span></div></div>
-	<div class="element-phone"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="tel" pattern="[+]?[\.\s\-\(\)\*\#0-9]{3,}" maxlength="24" name="telefone" required="required" placeholder="Telefone/Whatsapp" value=""/><span class="icon-place"></span></div></div>
+	<div class="element-phone"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="tel" pattern="[+]?[\.\s\-\(\)\*\#0-9]{3,}" name="telefone"  id="telefone" maxlength="15" required="required" placeholder="Telefone/Whatsapp" value=""/><span class="icon-place"></span></div></div>
 	<div class="element-phone"><label class="title"></label><div class="item-cont"><input class="large" type="tel" pattern="[+]?[\.\s\-\(\)\*\#0-9]{3,}" maxlength="24" name="telefone2" placeholder="Outro Telefone (opcional)" value=""/><span class="icon-place"></span></div></div>
 	<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="cidade" required="required" placeholder="Cidade"/><span class="icon-place"></span></div></div>
 	<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="estado" required="required" placeholder="Estado"/><span class="icon-place"></span></div></div>
@@ -267,25 +321,31 @@ if(@$_GET['go'] == 'cadastrar') // && @$_GET['upload'] == 'enviar')
 			//$query2=();
 			//pg_query($query2);
 
-      if ($uploadOk == 1){ 
+        if ($uploadOk == 1){ 
 
-        if (move_uploaded_file($_FILES["myfile"]["tmp_name"], $target_file)) {
-
-          echo " The file ". basename( $_FILES["myfile"]["name"]). " has been uploaded.";
-          $result = pg_query("insert into djs (nome_real, nome_art, telefone, telefone2, cidade, estado, descricao, img_nome, email, website) values ('$nome_real', '$nome_art', '$telefone', '$telefone2', '$cidade', '$estado', '$descricao', '$nome_completo', '$email', '$website')"); 
-          
-          echo "<script>alert('Usuario cadastrado com sucesso!');</script>";
-          echo '<script language = "JavaScript" >
-                alertify.success("Usuario cadastrado com sucesso!");
-                </script>';
+        echo '<td>' .$enviou. '</td>';
+        echo "<script>document.writeln(checaEnvio());</script>";
+          echo "<script>alert(checaEnvio());</script>";
+            if ("<script>document.writeln(checaEnvio());</script>" ) { // move_uploaded_file($_FILES["myfile"]["tmp_name"], $target_file
                 
-          echo '<meta HTTP-EQUIV="Refresh" CONTENT="0; URL=Formoid22.php">';
+                echo " The file ". basename( $_FILES["myfile"]["name"]). " has been uploaded.";
+                $result = pg_query("insert into djs (nome_real, nome_art, telefone, telefone2, cidade, estado, descricao, img_nome, email, website) values ('$nome_real', '$nome_art', '$telefone', '$telefone2', '$cidade', '$estado', '$descricao', '$nome_completo', '$email', '$website')"); 
+                
+                echo "<script>alert('Usuario cadastrado com sucesso!');</script>";
+                echo '<script language = "JavaScript" >
+                        alertify.success("Usuario cadastrado com sucesso!");
+                        </script>';
+                        
+                echo '<meta HTTP-EQUIV="Refresh" CONTENT="0; URL=Formoid22.php">';
 
-          //$result2 = pg_query("UPDATE djs SET img_nome = '$nome_completo '  WHERE id_dj ='20'"); 
-        }
-        else {
-          echo "Houve algum problema ao enviar a imagem, tente novamente.";
-        }
+                //$result2 = pg_query("UPDATE djs SET img_nome = '$nome_completo '  WHERE id_dj ='20'"); 
+                }
+            else {
+                echo "Houve algum problema ao enviar a imagem, tente novamente.";
+                echo '<script language = "JavaScript" >
+                        alertify.error("Houve algum problema no processo, tente novamente!");
+                        </script>';
+            }
       }
     }
 

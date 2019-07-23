@@ -135,7 +135,7 @@ function progressHandler(event) {
   _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
   var percent = (event.loaded / event.total) * 100;
   _("progressBar").value = Math.round(percent);
-  _("status").innerHTML = Math.round(percent) + "% enviado...";
+  _("status").innerHTML = Math.round(percent) + "% enviado... aguarde";
 }
 
 function completeHandler(event) {
@@ -149,6 +149,32 @@ function errorHandler(event) {
 
 function abortHandler(event) {
   _("status").innerHTML = "Upload Aborted";
+}
+
+
+
+// mascaras ER //
+function mascara(o,f){
+    v_obj=o
+    v_fun=f
+    setTimeout("execmascara()",1)
+}
+function execmascara(){
+    v_obj.value=v_fun(v_obj.value)
+}
+function mtel(v){
+    v=v.replace(/\D/g,"");             //Remove tudo o que não é dígito
+    v=v.replace(/^(\d{2})(\d)/g,"($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+    v=v.replace(/(\d)(\d{4})$/,"$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
+    return v;
+}
+function id( el ){
+	return document.getElementById( el );
+}
+window.onload = function(){
+	id('telefone').onkeyup = function(){
+		mascara( this, mtel );
+	}
 }
 </script>
 
@@ -208,7 +234,7 @@ while ($row = pg_fetch_row($result))
 
 echo  '<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="nome_real" required="required" value="'. $nome_real.'" placeholder="Nome real"/><span class="icon-place"></span></div></div>';
 echo  '<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="text" name="nome_art" required="required" value="'. $nome_art.'" placeholder="Nome artistico"/><span class="icon-place"></span></div></div>';
-echo  '<div class="element-phone"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="tel" pattern="[+]?[\.\s\-\(\)\*\#0-9]{3,}" maxlength="24" name="telefone" required="required"  placeholder="Telefone/Whatsapp" value="'. $telefone.'" /><span class="icon-place"></span></div></div>';
+echo  '<div class="element-phone"><label class="title"><span class="required">*</span></label><div class="item-cont"><input class="large" type="tel" pattern="[+]?[\.\s\-\(\)\*\#0-9]{3,}" maxlength="15" name="telefone" id="telefone" required="required"  placeholder="Telefone/Whatsapp" value="'. $telefone.'" /><span class="icon-place"></span></div></div>';
 echo  '<div class="element-phone"><label class="title"></label><div class="item-cont"><input class="large" type="tel" pattern="[+]?[\.\s\-\(\)\*\#0-9]{3,}" maxlength="24" name="telefone2"';
   if ($telefone2 == null)
     {echo 'placeholder="Outro Telefone (opcional)" />';}
@@ -296,10 +322,10 @@ if(@$_GET['go'] == 'salvar') // && @$_GET['upload'] == 'enviar')
 	$cidade_2 = $_POST['cidade'];
 	$estado_2 = $_POST['estado'];
 	$descricao_2 = $_POST['descricao'];
-  $id_2 = $_POST['id'];
-  $email_2 = $_POST['email'];
-  $website_2 = $_POST['website'];
-	
+    $id_2 = $_POST['id'];
+    $email_2 = $_POST['email'];
+    $website_2 = $_POST['website'];
+        
 	
 	$data = date('Y-m-d');
 	
@@ -391,6 +417,9 @@ if(@$_GET['go'] == 'salvar') // && @$_GET['upload'] == 'enviar')
         }
         else {
           echo "Houve algum problema ao enviar a imagem, tente novamente.";
+           echo '<script language = "JavaScript" >
+                        alertify.error("Houve algum problema no processo, tente novamente!");
+                        </script>';
         }
       }
     }
