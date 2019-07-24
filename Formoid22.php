@@ -163,12 +163,7 @@ window.onload = function(){
 	}
 }
 
-
-
 </script>
-
-
-
 
 
 <ul>
@@ -204,16 +199,11 @@ window.onload = function(){
         <!--<input id="upBtn" type="submit" name="submit" value="Upload File Now" >
         --> </div>
    
-
-    
-
     <div class="submit"><input type="submit" name="submit" value="Cadastrar"  /></form>
     <p class="frmd"><a href="http://formoid.com/v29.php">javascript form validation</a> Formoid.com 2.9</p><script type="text/javascript" src="formoid2_files/formoid1/formoid-solid-blue.js"></script>
     <!-- Stop Formoid form-->
 
 <p>&nbsp;</p>
-
-
 
 
 </body>
@@ -304,7 +294,7 @@ if(@$_GET['go'] == 'cadastrar') // && @$_GET['upload'] == 'enviar')
     // if everything is ok, try to upload file
     }
 	
-	echo '<td>' .$nome_completo. '</td>';
+	//echo '<td>' .$nome_completo. '</td>';
 		
 	 // verificando se algum campo está em branco
 		
@@ -321,11 +311,13 @@ if(@$_GET['go'] == 'cadastrar') // && @$_GET['upload'] == 'enviar')
 			//$query2=();
 			//pg_query($query2);
 
-        if ($uploadOk == 1){ 
+        if ($uploadOk == 1){  
 
-        echo '<td>' .$enviou. '</td>';
-        echo "<script>document.writeln(checaEnvio());</script>";
-          echo "<script>alert(checaEnvio());</script>";
+        //echo '<td>' .$enviou. '</td>';
+        //echo "<script>document.writeln(checaEnvio());</script>";
+          //echo "<script>alert(checaEnvio());</script>";
+          
+            // checa para ver se a imagem foi enviada com sucesso
             if ("<script>document.writeln(checaEnvio());</script>" ) { // move_uploaded_file($_FILES["myfile"]["tmp_name"], $target_file
                 
                 echo " The file ". basename( $_FILES["myfile"]["name"]). " has been uploaded.";

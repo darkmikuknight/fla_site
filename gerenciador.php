@@ -90,6 +90,11 @@ li a:hover:not(.active) {
   color: white;
 }
 
+#topo_colunas{
+ background-color: #111;
+ color: #d0cc6b; 
+}
+
 #desc{
     width: 100%;
 }
@@ -138,7 +143,7 @@ function checkDelete(){
   $id=' ';
 
   $i = 0;
-  echo '<html><body><table id="customers"><tr>';
+  echo '<html><body><table id="customers"><tr style="background-color: #111;color: #d0cc6b;">';
   while ($i < pg_num_fields($result))
     {
       $fieldName = pg_field_name($result, $i);
@@ -165,7 +170,7 @@ function checkDelete(){
         echo '<td id="desc"><b>Descrição</b></td>';
 
       if($fieldName == "img_nome" && $i == 8)
-        echo '<td><b>Nome da Imagem</b></td>';
+        echo '<td><b>Imagem</b></td>';
         
       if($fieldName == "email" && $i == 9)
         echo '<td><b>E-mail</b></td>';
@@ -206,7 +211,7 @@ function checkDelete(){
      $nome_real= pg_fetch_result($result, $i, "nome_real");
      $img_nome= pg_fetch_result($result, $i, "img_nome");
      
-      echo '<td><img id="img" src="../img_djs/'.$img_nome.'" style="width:100px;height:30px;"></td>';
+      //echo '<td><img id="img" src="../img_djs/'.$img_nome.'" style="width:100px;height:30px;"></td>';
      
       //echo '<td> "ID="'.$id.'</td>';
       //echo '<td> "ID="'.$nome_real.'</td>';

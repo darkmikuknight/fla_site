@@ -20,6 +20,9 @@ if($_SESSION["loggedIn"] != true) {
  $id = intval($_GET['id']);
  global $exibe_texto;
  $exibe_texto = true;
+ global $enviou;
+ $enviou = false;
+
 
 
 if(isset($_GET['go'])==false){
@@ -116,6 +119,8 @@ function _(el) {
   return document.getElementById(el);
 }
 
+var enviada = true;
+
 function uploadFile() {
   var file = _("myfile").files[0];
   // alert(file.name+" | "+file.size+" | "+file.type);
@@ -143,14 +148,27 @@ function completeHandler(event) {
   _("progressBar").value = 0; //wil clear progress bar after successful upload
 }
 
+
 function errorHandler(event) {
   _("status").innerHTML = "Upload Failed";
+    <?php
+    $enviou = false;
+    ?>
+    enviada = false;
 }
 
 function abortHandler(event) {
   _("status").innerHTML = "Upload Aborted";
+  <?php
+    $enviou = false;
+    ?>
+    
+    enviada = false;
 }
 
+function checaEnvio(){
+    return enviada;
+}
 
 
 // mascaras ER //
@@ -296,7 +314,7 @@ echo '<!-- Stop Formoid form-->';
 
 }
 
-if($exibe_texto){
+if($exibe_texto && (isset($_GET['go'])== false)){
     //echo '<p>&nbsp;</p>';
     echo '<h2 align="center">Imagem do DJ</h2>';
     echo '<div id="img2" align="center"><img  id="img2" src="img_djs/'.$img_nome.'"></div>';
@@ -401,7 +419,8 @@ if(@$_GET['go'] == 'salvar') // && @$_GET['upload'] == 'enviar')
 
       if ($uploadOk == 1){ 
 
-        if (move_uploaded_file($_FILES["myfile"]["tmp_name"], $target_file)) {
+        // checa para ver se a imagem foi enviada com sucesso
+        if ("<script>document.writeln(checaEnvio());</script>") { //move_uploaded_file($_FILES["myfile"]["tmp_name"], $target_file)
             
             $exibe_texto=false;
           //echo " The file ". basename( $_FILES["myfile"]["name"]). " has been uploaded."; //exibe o nome do da imagem caso o upload ocorreu com sucesso.

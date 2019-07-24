@@ -574,15 +574,15 @@ function remove_caractere() { //outra funcao para remover o "%", mas nao foi usa
 
         <!-- Footer Location -->
         <div class="col-lg-4 mb-5 mb-lg-0">
-          <h4 class="text-uppercase mb-4">Location</h4>
-          <p class="lead mb-0">2215 John Daniel Drive
-            <br>Clark, MO 65243</p>
+          <h4 class="text-uppercase mb-4"></h4>
+          <p class="lead mb-0"</p>
         </div>
+
 
         <!-- Footer Social Icons -->
         <div class="col-lg-4 mb-5 mb-lg-0">
           <h4 class="text-uppercase mb-4">Outros canais de comunicação:</h4>
-          <a class="btn btn-outline-light btn-social mx-1" href="https://www.facebook.com/flavinhodjjf/">
+          <a class="btn btn-outline-light btn-social mx-1" href="https://www.facebook.com/topdjsapp/">
             <i class="fab fa-fw fa-facebook-f"></i>
           </a>
           <a class="btn btn-outline-light btn-social mx-1" href="https://twitter.com/flavinhodjjf">
