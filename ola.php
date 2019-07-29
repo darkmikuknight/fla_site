@@ -7,63 +7,71 @@ if($_SESSION["loggedIn"] != true) {
 //echo("Enter my lord!");
 ?>
 
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Tela de gerenciamento de DJs</title>
-<style>
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
 
-li {
-  float: left;
-  border-right:1px solid #bbb;
-}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-li:last-child {
-  border-right: none;
-}
+  <title>Área de Gerenciamento TOPDJ$</title>
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-li a:hover:not(.active) {
-  background-color: #111;
-}
-
-.active {
-  background-color: #4CAF50;
-}
-
-body{
-    background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
-}
-
-</style>
 </head>
-<body>
 
-<ul>
-  <li><a class="active" href="ola.php">Home</a></li>
-  <li><a href="../Formoid22.php">Cadastro de DJs</a></li>
-  <li><a href="gerenciador.php">Gerenciar DJs</a></li>
-  <li style="float:right"><a href="sair.php">Sair</a></li>
- 
-</ul>
+<body class="blurBg-false" style="background-color:#EBEBEB">
 
-<!--
- <img align="right" src="turntable-310450_1280.png" alt="" style="width:500px; height500px;">
--->
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="https://topdjsapp.com/">Acessar TOPDJ$APP</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="ola.php">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../Formoid22.php">Cadastro de DJs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="gerenciador.php">Gerenciar DJs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="gerenciador2.php">Gerenciar2 DJs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="sair.php">Sair</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1 class="mt-5"></br></br>Área de gerenciamento de DJs</h1>
+        <p class="lead">Escolha alguma opção acima.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.slim.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

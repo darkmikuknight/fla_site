@@ -11,108 +11,82 @@ if($_SESSION["loggedIn"] != true) {
 
  
 ?>
- 
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
- <title>Gerenciar de DJs</title>
-<style>
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
 
-li {
-  float: left;
-  border-right:1px solid #bbb;
-}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-li:last-child {
-  border-right: none;
-}
+  <title>Gerenciador de DJs</title>
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script type="text/javascript" src="../alertifyjs/alertify.js"></script>
+  <link rel="stylesheet" type="text/css" href="../alertifyjs/css/alertify.css">
+  
+  
 
-li a:hover:not(.active) {
-  background-color: #111;
-}
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-.active {
-  background-color: #4CAF50;
-}
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.3.2.min.js"></script>
 
 
-
-</style>
 </head>
+
 <body>
 
+  <style>
+    #customers {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-<ul>
-  <li><a href="ola.php">Home</a></li>
-  <li><a href="../Formoid22.php">Cadastro de DJs</a></li>
-  <li><a class="active" href="gerenciador.php">Gerenciar DJs</a></li>
-  <li style="float:right"><a href="sair.php">Sair</a></li>
-</ul>
+    #customers td, #customers th {
+      border: 1px solid #ddd;
+      padding: 3px;
+    }
+
+    #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+    #customers tr:hover {background-color: #cccdfc;}
+
+    #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #topo_colunas{
+     background-color: #111;
+     color: #d0cc6b; 
+    }
+
+    #desc{
+        width: 100%;
+    }
+    
+    table.table td a.edit {
+        color: #FFC107;
+    }
+    table.table td a.delete {
+        color: #E34724;
+    }
+
+    
 
 
-<style>
-#customers {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+  </style>
 
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  padding: 3px;
-}
-
-#customers tr:nth-child(even){background-color: #f2f2f2;}
-
-#customers tr:hover {background-color: #cccdfc;}
-
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
-}
-
-#topo_colunas{
- background-color: #111;
- color: #d0cc6b; 
-}
-
-#desc{
-    width: 100%;
-}
-
-</style>
-
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
- <script type="text/javascript" src="../alertifyjs/alertify.js"></script>
-<link rel="stylesheet" type="text/css" href="../alertifyjs/css/alertify.css">
-
-<b>
-
-<script language = "JavaScript" >
+  <script language = "JavaScript" >
     function deleteUser(id, nome) {
 
         alertify.confirm("Deseja excluir o "+nome+"?",
@@ -127,14 +101,54 @@ li a:hover:not(.active) {
 
     }
 
-function checkDelete(){
-    return confirm('Tem certeza?');
-}
-</script>
+  function checkDelete(){
+      return confirm('Tem certeza?');
+  }
 
 
+ $(document).ready(function() {
+           // $('#btnHide').click(function() {
+                $('td:nth-child(1)').hide();
+                // if your table has header(th), use this
+                //$('td:nth-child(2),th:nth-child(2)').hide();
+          //  });
+        });
 
-<?php
+
+ </script>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="https://topdjsapp.com/">Acessar TOPDJ$APP</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="ola.php">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../Formoid22.php">Cadastro de DJs</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="gerenciador.php">Gerenciar DJs</a>
+             <span class="sr-only">(current)</span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="gerenciador2.php">Gerenciar2 DJs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="sair.php">Sair</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <?php
 
   $query = 'SELECT * from djs ORDER BY id_dj';
 
@@ -143,13 +157,14 @@ function checkDelete(){
   $id=' ';
 
   $i = 0;
-  echo '<html><body><table id="customers"><tr style="background-color: #111;color: #d0cc6b;">';
+  echo '<div class="table-responsive">';
+  echo '<table  class="table table-hover table-bordered" id="customers"><thead><tr style="background-color: #111;color: #d0cc6b;">';
   while ($i < pg_num_fields($result))
     {
       $fieldName = pg_field_name($result, $i);
       
       if($fieldName == "nome_real" && $i == 1)
-        echo '<td><b>Nome real</b></td>';
+        echo '<td><b>Nome Real</b></td>';
 
       if($fieldName == "nome_art" && $i == 2)
         echo '<td><b>Nome Artístico</b></td>';
@@ -167,7 +182,7 @@ function checkDelete(){
         echo '<td><b>Estado</b></td>';
 
       if($fieldName == "descricao" && $i == 7)
-        echo '<td id="desc"><b>Descrição</b></td>';
+        echo '<td><b>Descrição</b></td>';
 
       if($fieldName == "img_nome" && $i == 8)
         echo '<td><b>Imagem</b></td>';
@@ -179,12 +194,13 @@ function checkDelete(){
         echo '<td><b>Website</b></td>';
 
       elseif($i==0){
-        echo '<td>' .$fieldName. '</td>';
+        echo '<td><div class="ocultar_id">' .$fieldName. '</div></td>';
         }
 
       $i = $i + 1;
     }
-  echo '</tr>';
+  echo '<td colspan="2"><b>Ações</b></td>';
+  echo '</tr></thead><tbody>';
   $i = 0;
 
   while ($row = pg_fetch_row($result)) 
@@ -200,6 +216,10 @@ function checkDelete(){
         if($c_row == $img_nome)
             echo '<td><img id="img" src="../img_djs/'.$img_nome.'" style="width:200px;height:60px;"></td>';
         
+        /*$id_dj= pg_fetch_result($result, $i, "id_dj");
+        if($c_row == $id_dj)
+            echo '<td hidden>' . $c_row . '</td>';*/
+
         else
             echo '<td>' . $c_row . '</td>';
               
@@ -215,10 +235,11 @@ function checkDelete(){
      
       //echo '<td> "ID="'.$id.'</td>';
       //echo '<td> "ID="'.$nome_real.'</td>';
-      echo  '<td>   <a href="../editar2.php?id='.$id.'" class="btn btn-warning"" role="button" >Edit</a>';  
+     
+     echo  '<td>   <a href="../editar2.php?id='.$id.'" class="edit" title="Edit" data-toggle="tooltip" role="button" ><i class="material-icons">&#xE254;</i></a></td>';  
       ?>
 
-      <td> <div class="btn-group" > <a href="#" onclick="return deleteUser('<?php echo $id ?>', '<?php echo $nome_real ?>')"  class="btn btn-danger btn-xs" role="button"  >Delete</a></div></td>
+       <td><div class="btn-group" > <a href="#" onclick="return deleteUser('<?php echo $id ?>', '<?php echo $nome_real ?>')"  class="delete" title="Delete" data-toggle="tooltip"  role="button"  ><i class="material-icons">&#xE872;</i></a></div></td>
       
       <?php
 
@@ -237,9 +258,14 @@ function checkDelete(){
     }
   pg_free_result($result);
 
-  echo '</table></body></html>';
+  echo '</tbody></table></div>';
 ?>
 
- 
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.slim.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>
